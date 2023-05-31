@@ -1,0 +1,15 @@
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\bin\Debug\net6.0\DC.Application.Contracts.deps.json
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\bin\Debug\net6.0\DC.Application.Contracts.dll
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\bin\Debug\net6.0\DC.Application.Contracts.pdb
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\bin\Debug\net6.0\HelperClass.dll
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\bin\Debug\net6.0\HelperClass.pdb
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\obj\Debug\net6.0\DC.Application.Contracts.csproj.AssemblyReference.cache
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\obj\Debug\net6.0\DC.Application.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\obj\Debug\net6.0\DC.Application.Contracts.AssemblyInfoInputs.cache
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\obj\Debug\net6.0\DC.Application.Contracts.AssemblyInfo.cs
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\obj\Debug\net6.0\DC.Application.Contracts.csproj.CoreCompileInputs.cache
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\obj\Debug\net6.0\DC.Application.Contracts.csproj.CopyComplete
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\obj\Debug\net6.0\DC.Application.Contracts.dll
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\obj\Debug\net6.0\refint\DC.Application.Contracts.dll
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\obj\Debug\net6.0\DC.Application.Contracts.pdb
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Application.Contracts\obj\Debug\net6.0\ref\DC.Application.Contracts.dll

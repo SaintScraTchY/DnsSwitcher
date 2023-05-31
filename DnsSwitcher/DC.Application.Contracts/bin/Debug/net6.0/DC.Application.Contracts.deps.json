@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "DC.Application.Contracts/1.0.0": {
+        "dependencies": {
+          "HelperClass": "1.0.0"
+        },
+        "runtime": {
+          "DC.Application.Contracts.dll": {}
+        }
+      },
+      "HelperClass/1.0.0": {
+        "runtime": {
+          "HelperClass.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DC.Application.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HelperClass/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

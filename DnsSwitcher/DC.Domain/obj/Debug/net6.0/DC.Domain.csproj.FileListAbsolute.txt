@@ -1,0 +1,15 @@
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\bin\Debug\net6.0\DC.Domain.deps.json
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\bin\Debug\net6.0\DC.Domain.dll
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\bin\Debug\net6.0\DC.Domain.pdb
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\bin\Debug\net6.0\HelperClass.dll
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\bin\Debug\net6.0\HelperClass.pdb
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\obj\Debug\net6.0\DC.Domain.csproj.AssemblyReference.cache
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\obj\Debug\net6.0\DC.Domain.GeneratedMSBuildEditorConfig.editorconfig
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\obj\Debug\net6.0\DC.Domain.AssemblyInfoInputs.cache
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\obj\Debug\net6.0\DC.Domain.AssemblyInfo.cs
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\obj\Debug\net6.0\DC.Domain.csproj.CoreCompileInputs.cache
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\obj\Debug\net6.0\DC.Domain.csproj.CopyComplete
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\obj\Debug\net6.0\DC.Domain.dll
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\obj\Debug\net6.0\refint\DC.Domain.dll
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\obj\Debug\net6.0\DC.Domain.pdb
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Domain\obj\Debug\net6.0\ref\DC.Domain.dll
