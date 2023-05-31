@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnsChangerConsole", "DnsChangerConsole\DnsChangerConsole.csproj", "{136006EC-0A83-4DDC-8BA3-C24E6CAB1B03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DnsSwitcher", "DnsSwitcher", "{BE06AB28-3C42-403B-A754-8715ADE57A0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DC.Domain", "DnsSwitcher\DC.Domain\DC.Domain.csproj", "{B7192911-6A71-49DF-B4FE-CDEE00550F68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DC.Application.Contracts", "DnsSwitcher\DC.Application.Contracts\DC.Application.Contracts.csproj", "{B0F2EAAC-B1E1-49A1-8834-EB3ACA2C7965}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DC.Application", "DnsSwitcher\DC.Application\DC.Application.csproj", "{B840E59F-9FFE-4E7C-8250-9E5E1EA7795E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DC.Infrastructure.SQlite", "DnsSwitcher\DC.Infrastructure.SQlite\DC.Infrastructure.SQlite.csproj", "{EFF090C1-B2B7-49F4-BE20-CBCAF7B02233}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperClass", "DnsSwitcher\HelperClass\HelperClass.csproj", "{BE0E6D49-0AD7-4498-97ED-B4F8C4F965A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DC.Infrastructure.Bootstrapper", "DnsSwitcher\DC.Infrastructure.Bootstrapper\DC.Infrastructure.Bootstrapper.csproj", "{ACFE655A-79E0-433D-80F4-CCE6AD43988F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{136006EC-0A83-4DDC-8BA3-C24E6CAB1B03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{136006EC-0A83-4DDC-8BA3-C24E6CAB1B03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{136006EC-0A83-4DDC-8BA3-C24E6CAB1B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{136006EC-0A83-4DDC-8BA3-C24E6CAB1B03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7192911-6A71-49DF-B4FE-CDEE00550F68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7192911-6A71-49DF-B4FE-CDEE00550F68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7192911-6A71-49DF-B4FE-CDEE00550F68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7192911-6A71-49DF-B4FE-CDEE00550F68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0F2EAAC-B1E1-49A1-8834-EB3ACA2C7965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0F2EAAC-B1E1-49A1-8834-EB3ACA2C7965}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0F2EAAC-B1E1-49A1-8834-EB3ACA2C7965}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0F2EAAC-B1E1-49A1-8834-EB3ACA2C7965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B840E59F-9FFE-4E7C-8250-9E5E1EA7795E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B840E59F-9FFE-4E7C-8250-9E5E1EA7795E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B840E59F-9FFE-4E7C-8250-9E5E1EA7795E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B840E59F-9FFE-4E7C-8250-9E5E1EA7795E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFF090C1-B2B7-49F4-BE20-CBCAF7B02233}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFF090C1-B2B7-49F4-BE20-CBCAF7B02233}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFF090C1-B2B7-49F4-BE20-CBCAF7B02233}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFF090C1-B2B7-49F4-BE20-CBCAF7B02233}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE0E6D49-0AD7-4498-97ED-B4F8C4F965A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE0E6D49-0AD7-4498-97ED-B4F8C4F965A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE0E6D49-0AD7-4498-97ED-B4F8C4F965A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE0E6D49-0AD7-4498-97ED-B4F8C4F965A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACFE655A-79E0-433D-80F4-CCE6AD43988F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACFE655A-79E0-433D-80F4-CCE6AD43988F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACFE655A-79E0-433D-80F4-CCE6AD43988F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACFE655A-79E0-433D-80F4-CCE6AD43988F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B7192911-6A71-49DF-B4FE-CDEE00550F68} = {BE06AB28-3C42-403B-A754-8715ADE57A0D}
+		{B0F2EAAC-B1E1-49A1-8834-EB3ACA2C7965} = {BE06AB28-3C42-403B-A754-8715ADE57A0D}
+		{B840E59F-9FFE-4E7C-8250-9E5E1EA7795E} = {BE06AB28-3C42-403B-A754-8715ADE57A0D}
+		{EFF090C1-B2B7-49F4-BE20-CBCAF7B02233} = {BE06AB28-3C42-403B-A754-8715ADE57A0D}
+		{BE0E6D49-0AD7-4498-97ED-B4F8C4F965A8} = {BE06AB28-3C42-403B-A754-8715ADE57A0D}
+		{ACFE655A-79E0-433D-80F4-CCE6AD43988F} = {BE06AB28-3C42-403B-A754-8715ADE57A0D}
+	EndGlobalSection
+EndGlobal

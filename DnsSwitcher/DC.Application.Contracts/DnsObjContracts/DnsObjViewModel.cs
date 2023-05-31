@@ -1,0 +1,8 @@
+﻿namespace DC.Application.Contracts.DnsObjContracts;
+
+public class DnsObjViewModel
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string DnsAddresses { get; set; }
+}
