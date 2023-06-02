@@ -35,6 +35,19 @@
           }
         }
       },
+      "DC.Application.Contracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "HelperClass": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DC.Application.Contracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DC.Application.Contracts.dll": {}
+        }
+      },
       "HelperClass/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -99,6 +112,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "DC.Application.Contracts/1.0.0": {
+      "type": "project",
+      "path": "../DC.Application.Contracts/DC.Application.Contracts.csproj",
+      "msbuildProject": "../DC.Application.Contracts/DC.Application.Contracts.csproj"
+    },
     "HelperClass/1.0.0": {
       "type": "project",
       "path": "../HelperClass/HelperClass.csproj",
@@ -107,6 +125,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "DC.Application.Contracts >= 1.0.0",
       "HelperClass >= 1.0.0",
       "System.Management >= 6.0.1"
     ]
@@ -142,6 +161,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Application.Contracts\\DC.Application.Contracts.csproj": {
+              "projectPath": "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Application.Contracts\\DC.Application.Contracts.csproj"
+            },
             "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\HelperClass\\HelperClass.csproj": {
               "projectPath": "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\HelperClass\\HelperClass.csproj"
             }

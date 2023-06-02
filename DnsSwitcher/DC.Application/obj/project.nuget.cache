@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "aXEGUAbVPA42W0ffucJPzYzeovuOvIe2mWWywM6edqhk8EmIzhGcGsIqvyRMpjceJF272q5OpZ8bx846QFhb/w==",
+  "dgSpecHash": "Yv0puB4l4ExfneXxUmE8/hf8XuNJ7u2TefRXy1xmiq7gLsRVecqDbZeO/UI6R7/zQv0vlOSK91Y4njn/L2szUQ==",
   "success": true,
   "projectFilePath": "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Application\\DC.Application.csproj",
   "expectedPackageFiles": [

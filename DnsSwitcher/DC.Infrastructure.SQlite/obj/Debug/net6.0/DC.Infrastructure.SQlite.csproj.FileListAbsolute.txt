@@ -2,9 +2,11 @@ J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Infrastructure.SQlit
 J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Infrastructure.SQlite\bin\Debug\net6.0\DC.Infrastructure.SQlite.runtimeconfig.json
 J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Infrastructure.SQlite\bin\Debug\net6.0\DC.Infrastructure.SQlite.dll
 J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Infrastructure.SQlite\bin\Debug\net6.0\DC.Infrastructure.SQlite.pdb
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Infrastructure.SQlite\bin\Debug\net6.0\DC.Application.Contracts.dll
 J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Infrastructure.SQlite\bin\Debug\net6.0\DC.Domain.dll
 J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Infrastructure.SQlite\bin\Debug\net6.0\HelperClass.dll
 J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Infrastructure.SQlite\bin\Debug\net6.0\DC.Domain.pdb
+J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Infrastructure.SQlite\bin\Debug\net6.0\DC.Application.Contracts.pdb
 J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Infrastructure.SQlite\bin\Debug\net6.0\HelperClass.pdb
 J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Infrastructure.SQlite\obj\Debug\net6.0\DC.Infrastructure.SQlite.csproj.AssemblyReference.cache
 J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsSwitcher\DC.Infrastructure.SQlite\obj\Debug\net6.0\DC.Infrastructure.SQlite.GeneratedMSBuildEditorConfig.editorconfig

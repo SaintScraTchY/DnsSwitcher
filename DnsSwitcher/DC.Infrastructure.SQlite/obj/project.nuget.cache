@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "fRlNuMktDXGxZJxAHRm209Msg1ki9iQaZ7x/OGK/OQiGZm5XcL4nIQgF0Cd7FWGPjZQt3cqfgJnUVMddqWXMDg==",
+  "dgSpecHash": "IVzl05RvSR2Q3DUj8ztmPo0yoffCrbXaD7TMFp3hQN0ae+boQj1LbmpE8Zd1UsvYDOVI+gjPapR1veUUwUKjgw==",
   "success": true,
   "projectFilePath": "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Infrastructure.SQlite\\DC.Infrastructure.SQlite.csproj",
   "expectedPackageFiles": [

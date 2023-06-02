@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7u3Nb3XOc/7NtI7i8ALDFRfOqzEG/x92aPws9GNbKwOc/YqdfiH/mDjs7vZrBt8v418oD/gWfIOXfrrkz5qrsQ==",
+  "dgSpecHash": "GMkx+gxyNJUuFbWffjBHnLp07p3wZ8DvzJaNH8i3MYvQwHQBrHCTIxr+ri+AOli7H8f3hnwssooMqkgiMcYO1A==",
   "success": true,
   "projectFilePath": "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Infrastructure.Bootstrapper\\DC.Infrastructure.Bootstrapper.csproj",
   "expectedPackageFiles": [

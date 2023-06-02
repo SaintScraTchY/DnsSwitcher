@@ -9,6 +9,7 @@ using DC.Infrastructure.SQlite.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace DnsChangerConsole
 {
@@ -19,20 +20,20 @@ namespace DnsChangerConsole
         public static void Main(string[] args)
         {
             Console.WriteLine("Getting Things Ready...");
-            IServiceCollection s = new ServiceCollection();
             IHost host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
             {
                 services.AddTransient<IDnsObjApplication, DnsObjApplication>();
                 services.AddTransient<IDnsObjRepository, DnsObjRepository>();
-                services.AddDbContext<DnsContext>(options => options.UseSqlite($"Data Source=DnsDB.db"));
-            }).Build();
-            ServiceProvider = host.Services;
+                services.AddDbContext<DnsContext>(options => options.UseSqlite(@"Data Source=J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsChangerConsole\DnsDB.db"));
+            }).ConfigureLogging(Logger => Logger.ClearProviders()).Build();
             
-            var t = ServiceProvider.GetRequiredService<IDnsObjApplication>();
-            ConsoleApp App = new ConsoleApp(t);
+            ServiceProvider = host.Services;
+
+            ConsoleApp consoleapp = new ConsoleApp(ServiceProvider.GetRequiredService<IDnsObjApplication>());
+            consoleapp.GoHome();
+            Console.ReadKey();
         }
 
-        
     }
 }
 

@@ -16,12 +16,30 @@ public class DnsObjApplication : IDnsObjApplication
 
     public OperationResult Create(CreateDnsObj command)
     {
-        OperationResult operationResult =new();
+        OperationResult operationResult = new();
         if (_dnsObjRepository.Exists(x=>x.Name == command.Name))
             return operationResult.Failed(ApplicationMessages.DuplicatedRecord);
         DnsObj dnsObj = new DnsObj(command.DnsAddresses, command.Name);
         _dnsObjRepository.Create(dnsObj);
+        _dnsObjRepository.Save();
         return operationResult.Succeeded();
+    }
+
+    public OperationResult Delete(int id)
+    {
+        OperationResult operationResult = new();
+        if (!_dnsObjRepository.Exists(x=>x.Id==id))
+        {
+            return operationResult.Failed("TODO");
+        }
+        _dnsObjRepository.Delete(id);
+        _dnsObjRepository.Save();
+        return operationResult.Succeeded();
+    }
+
+    public EditDnsObj GetDetail(int id)
+    {
+        return _dnsObjRepository.GetDetail(id);
     }
 
     public OperationResult Edit(EditDnsObj command)
@@ -29,12 +47,15 @@ public class DnsObjApplication : IDnsObjApplication
         OperationResult operationResult =new();
         if (_dnsObjRepository.Exists(x=>x.Name ==command.Name && x.Id != command.Id))
             return operationResult.Failed(ApplicationMessages.DuplicatedRecord);
+        DnsObj editDnsObj = _dnsObjRepository.FindBy(command.Id);
+        editDnsObj.Edit(command.DnsAddresses,command.Name);
+        _dnsObjRepository.Save();
         return operationResult.Succeeded();
     }
 
     public List<DnsObjViewModel> GetAll()
     {
-        throw new NotImplementedException();
+        return _dnsObjRepository.GetAll();
     }
 
     public OperationResult SetDns(int id)
@@ -48,7 +69,7 @@ public class DnsObjApplication : IDnsObjApplication
         }
         catch (Exception e)
         {
-            return operationResult.Failed("Failed");
+            return operationResult.Failed("TODO");
         }
     }
 
@@ -63,7 +84,7 @@ public class DnsObjApplication : IDnsObjApplication
         }
         catch (Exception e)
         {
-            return operationResult.Failed("failed");
+            return operationResult.Failed("TODO");
         }
     }
 }

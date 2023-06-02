@@ -7,7 +7,7 @@ namespace DC.Infrastructure.SQlite;
 
 public class DnsContext : DbContext
 {
-    public DbSet<DnsObj> DnsObjects { get; set; }
+    public DbSet<DnsObj> Dnses { get; set; }
 
     public DnsContext(DbContextOptions<DnsContext> options) : base(options)
     {
@@ -16,10 +16,8 @@ public class DnsContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseSqlite($"Data Source=DnsDB.db");
-        }
+
+        optionsBuilder.UseSqlite(@"Data Source=J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsChangerConsole\DnsDB.db");
         base.OnConfiguring(optionsBuilder );
     }
 

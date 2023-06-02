@@ -527,10 +527,24 @@
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
+      "DC.Application.Contracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "HelperClass": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DC.Application.Contracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DC.Application.Contracts.dll": {}
+        }
+      },
       "DC.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "DC.Application.Contracts": "1.0.0",
           "HelperClass": "1.0.0",
           "System.Management": "6.0.1"
         },
@@ -1277,6 +1291,11 @@
         "system.text.json.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "DC.Application.Contracts/1.0.0": {
+      "type": "project",
+      "path": "../DC.Application.Contracts/DC.Application.Contracts.csproj",
+      "msbuildProject": "../DC.Application.Contracts/DC.Application.Contracts.csproj"
     },
     "DC.Domain/1.0.0": {
       "type": "project",

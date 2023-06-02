@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "DC.Domain/1.0.0": {
         "dependencies": {
+          "DC.Application.Contracts": "1.0.0",
           "HelperClass": "1.0.0",
           "System.Management": "6.0.1"
         },
@@ -42,6 +43,14 @@
           }
         }
       },
+      "DC.Application.Contracts/1.0.0": {
+        "dependencies": {
+          "HelperClass": "1.0.0"
+        },
+        "runtime": {
+          "DC.Application.Contracts.dll": {}
+        }
+      },
       "HelperClass/1.0.0": {
         "runtime": {
           "HelperClass.dll": {}
@@ -68,6 +77,11 @@
       "sha512": "sha512-10J1D0h/lioojphfJ4Fuh5ZUThT/xOVHdV9roGBittKKNP2PMjrvibEdbVTGZcPra1399Ja3tqIJLyQrc5Wmhg==",
       "path": "system.management/6.0.1",
       "hashPath": "system.management.6.0.1.nupkg.sha512"
+    },
+    "DC.Application.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "HelperClass/1.0.0": {
       "type": "project",

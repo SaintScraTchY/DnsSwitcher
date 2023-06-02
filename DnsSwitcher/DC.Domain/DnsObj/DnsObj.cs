@@ -50,9 +50,10 @@ public class DnsObj
                 ManagementBaseObject methodParameters = instance.GetMethodParameters("SetDNSServerSearchOrder");
                 if (methodParameters != null)
                 {
-                        methodParameters["DNSServerSearchOrder"] = (object)DnsAddresses.Split(',');
-                        instance.InvokeMethod("SetDNSServerSearchOrder", methodParameters, (InvokeMethodOptions)null);
-                        Console.WriteLine("Dns has been Set");
+                    string[] DnsArr = DnsAddresses.Split(',');
+                    methodParameters["DNSServerSearchOrder"] = DnsArr;
+                    instance.InvokeMethod("SetDNSServerSearchOrder", methodParameters, (InvokeMethodOptions)null);
+                    Console.WriteLine("Dns has been Set");
                 }
             }
         }
