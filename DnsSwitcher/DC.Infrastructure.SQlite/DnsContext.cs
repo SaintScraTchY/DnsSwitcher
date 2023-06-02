@@ -16,8 +16,10 @@ public class DnsContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-
-        optionsBuilder.UseSqlite(@"Data Source=J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsChangerConsole\DnsDB.db");
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlite(@"Data Source=DnsDB.db");
+        }
         base.OnConfiguring(optionsBuilder );
     }
 

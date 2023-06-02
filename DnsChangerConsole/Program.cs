@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Diagnostics;
 using DC.Application;
 using DC.Application.Contracts.DnsObjContracts;
 using DC.Domain.DnsObj;
@@ -16,22 +17,37 @@ namespace DnsChangerConsole
     class Program
     {
         public static IServiceProvider ServiceProvider { get; private set; }
-
+        private const string  DbName = "DnsDB.db";
         public static void Main(string[] args)
         {
+
+
             Console.WriteLine("Getting Things Ready...");
+
+            if (!File.Exists(DbName))
+            {
+                File.Create(DbName);
+                Console.WriteLine("Please Restart the App for full initialization");
+            }
+
             IHost host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
             {
                 services.AddTransient<IDnsObjApplication, DnsObjApplication>();
                 services.AddTransient<IDnsObjRepository, DnsObjRepository>();
-                services.AddDbContext<DnsContext>(options => options.UseSqlite(@"Data Source=J:\Dev\Projects\CSharp\DotNetCore\DnsChanger\DnsChangerConsole\DnsDB.db"));
+                
+                services.AddDbContext<DnsContext>(options => options.UseSqlite(@$"Data Source={DbName}"));
             }).ConfigureLogging(Logger => Logger.ClearProviders()).Build();
             
             ServiceProvider = host.Services;
 
+            if (File.Exists(DbName))
+            {
+                ServiceProvider.GetRequiredService<DnsContext>().Database.Migrate();
+            }
+            
             ConsoleApp consoleapp = new ConsoleApp(ServiceProvider.GetRequiredService<IDnsObjApplication>());
             consoleapp.GoHome();
-            Console.ReadKey();
+            Console.ReadLine();
         }
 
     }
