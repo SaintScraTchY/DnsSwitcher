@@ -439,7 +439,6 @@
       "DC.Domain/1.0.0": {
         "dependencies": {
           "DC.Application.Contracts": "1.0.0",
-          "HelperClass": "1.0.0",
           "System.Management": "6.0.1"
         },
         "runtime": {

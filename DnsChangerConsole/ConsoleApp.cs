@@ -15,9 +15,10 @@ public class ConsoleApp
 
     public void StartApp()
     {
+        Console.ForegroundColor = ConsoleColor.White;
         Console.Clear();
         Console.WriteLine("[C]reate");
-        Console.WriteLine("[U]nSet_Dns");
+        Console.WriteLine("[U]nset Dns");
         Console.WriteLine("[M]odify");
         Console.WriteLine("[D]elete");
         Console.WriteLine("[E]xit");
@@ -84,10 +85,11 @@ public class ConsoleApp
             {
                 switch (PressedKey)
                 {
-                    case "U" or "u":
-                        break;
                     case "C" or "c":
                         CreateDns();
+                        break;
+                    case "U" or "u":
+                        _dnsObjApplication.UnSetDns();
                         break;
                     case "M" or "m":
                         ModifyDns();
@@ -124,6 +126,7 @@ public class ConsoleApp
         Console.WriteLine("[B]ack");
         
         LoopDns(ConsoleColor.Cyan);
+        Console.ForegroundColor = ConsoleColor.White;
         while (true)
         {
             string PressedKey = Console.ReadLine();
@@ -136,9 +139,10 @@ public class ConsoleApp
                 EditDnsObj editDnsObj = _dnsObjApplication.GetDetail(Id);
                 Console.WriteLine($" Enter new Value for Title [Previous value:{editDnsObj.Name}] ");
                 editDnsObj.Name = Console.ReadLine();
-                Console.WriteLine($" Enter new value for First Dns [Previous value:{editDnsObj.DnsAddresses.Split(',')[0]}] ");
+                string[] DnsTemp = editDnsObj.DnsAddresses.Split(',');
+                Console.WriteLine($" Enter new value for First Dns [Previous value:{DnsTemp[0]}] ");
                 editDnsObj.DnsAddresses = Console.ReadLine() + ",";
-                Console.WriteLine($" Enter new value for First Dns [Previous value:{editDnsObj.DnsAddresses.Split(',')[1]}] ");
+                Console.WriteLine($" Enter new value for First Dns [Previous value:{DnsTemp[1]}] ");
                 editDnsObj.DnsAddresses += Console.ReadLine();
                 Console.WriteLine("-----------------------------------------");
                 Console.WriteLine("Y/N - Y=Save | N=Cancel");
@@ -164,6 +168,7 @@ public class ConsoleApp
         Console.WriteLine("[B]ack");
         
         LoopDns(ConsoleColor.Yellow);
+        Console.ForegroundColor = ConsoleColor.White;
         while (true)
         {
             string PressedKey = Console.ReadLine();

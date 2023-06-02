@@ -4,7 +4,6 @@ using System.Diagnostics;
 using DC.Application;
 using DC.Application.Contracts.DnsObjContracts;
 using DC.Domain.DnsObj;
-using DC.Infrastructure.Bootstrapper;
 using DC.Infrastructure.SQlite;
 using DC.Infrastructure.SQlite.Repositories;
 using Microsoft.EntityFrameworkCore;

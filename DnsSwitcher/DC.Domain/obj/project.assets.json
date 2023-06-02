@@ -126,7 +126,6 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "DC.Application.Contracts >= 1.0.0",
-      "HelperClass >= 1.0.0",
       "System.Management >= 6.0.1"
     ]
   },
@@ -163,9 +162,6 @@
           "projectReferences": {
             "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Application.Contracts\\DC.Application.Contracts.csproj": {
               "projectPath": "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Application.Contracts\\DC.Application.Contracts.csproj"
-            },
-            "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\HelperClass\\HelperClass.csproj": {
-              "projectPath": "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\HelperClass\\HelperClass.csproj"
             }
           }
         }

@@ -1,7 +1,6 @@
 ﻿using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
-using HelperClass.Application;
 
 namespace DC.Domain.DnsObj;
 
@@ -74,7 +73,7 @@ public class DnsObj
                 {
                     methodParameters["DNSServerSearchOrder"] = null;
                     instance.InvokeMethod("SetDNSServerSearchOrder", methodParameters, (InvokeMethodOptions)null);
-                    Console.WriteLine("Dns has been Set");
+                    Console.WriteLine("Dns Cleared");
                 }
             }
         }

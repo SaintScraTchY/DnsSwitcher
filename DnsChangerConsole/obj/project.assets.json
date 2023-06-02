@@ -882,7 +882,6 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "DC.Application.Contracts": "1.0.0",
-          "HelperClass": "1.0.0",
           "System.Management": "6.0.1"
         },
         "compile": {
@@ -890,23 +889,6 @@
         },
         "runtime": {
           "bin/placeholder/DC.Domain.dll": {}
-        }
-      },
-      "DC.Infrastructure.Bootstrapper/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "DC.Application": "1.0.0",
-          "DC.Application.Contracts": "1.0.0",
-          "DC.Infrastructure.SQlite": "1.0.0",
-          "Microsoft.Extensions.Hosting": "6.0.1",
-          "Microsoft.Extensions.Hosting.Abstractions": "6.0.0"
-        },
-        "compile": {
-          "bin/placeholder/DC.Infrastructure.Bootstrapper.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DC.Infrastructure.Bootstrapper.dll": {}
         }
       },
       "DC.Infrastructure.SQlite/1.0.0": {
@@ -2085,11 +2067,6 @@
       "path": "../DnsSwitcher/DC.Domain/DC.Domain.csproj",
       "msbuildProject": "../DnsSwitcher/DC.Domain/DC.Domain.csproj"
     },
-    "DC.Infrastructure.Bootstrapper/1.0.0": {
-      "type": "project",
-      "path": "../DnsSwitcher/DC.Infrastructure.Bootstrapper/DC.Infrastructure.Bootstrapper.csproj",
-      "msbuildProject": "../DnsSwitcher/DC.Infrastructure.Bootstrapper/DC.Infrastructure.Bootstrapper.csproj"
-    },
     "DC.Infrastructure.SQlite/1.0.0": {
       "type": "project",
       "path": "../DnsSwitcher/DC.Infrastructure.SQlite/DC.Infrastructure.SQlite.csproj",
@@ -2105,7 +2082,7 @@
     "net6.0": [
       "DC.Application >= 1.0.0",
       "DC.Application.Contracts >= 1.0.0",
-      "DC.Infrastructure.Bootstrapper >= 1.0.0",
+      "DC.Infrastructure.SQlite >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.16",
       "Microsoft.Extensions.Hosting >= 6.0.1",
       "System.Management >= 6.0.1"
@@ -2148,8 +2125,8 @@
             "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Application\\DC.Application.csproj": {
               "projectPath": "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Application\\DC.Application.csproj"
             },
-            "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Infrastructure.Bootstrapper\\DC.Infrastructure.Bootstrapper.csproj": {
-              "projectPath": "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Infrastructure.Bootstrapper\\DC.Infrastructure.Bootstrapper.csproj"
+            "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Infrastructure.SQlite\\DC.Infrastructure.SQlite.csproj": {
+              "projectPath": "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Infrastructure.SQlite\\DC.Infrastructure.SQlite.csproj"
             }
           }
         }

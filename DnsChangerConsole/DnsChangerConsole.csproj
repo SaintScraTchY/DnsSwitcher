@@ -19,7 +19,7 @@
     <ItemGroup>
       <ProjectReference Include="..\DnsSwitcher\DC.Application.Contracts\DC.Application.Contracts.csproj" />
       <ProjectReference Include="..\DnsSwitcher\DC.Application\DC.Application.csproj" />
-      <ProjectReference Include="..\DnsSwitcher\DC.Infrastructure.Bootstrapper\DC.Infrastructure.Bootstrapper.csproj" />
+      <ProjectReference Include="..\DnsSwitcher\DC.Infrastructure.SQlite\DC.Infrastructure.SQlite.csproj" />
     </ItemGroup>
 
 </Project>
