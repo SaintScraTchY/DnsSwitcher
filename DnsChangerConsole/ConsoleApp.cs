@@ -1,4 +1,6 @@
-﻿using DC.Application.Contracts.DnsObjContracts;
+﻿using System;
+using System.Collections.Generic;
+using DC.Application.Contracts.DnsObjContracts;
 
 namespace DnsChangerConsole;
 
@@ -107,8 +109,11 @@ public class ConsoleApp
 
     public void CreateDns()
     {
-        CreateDnsObj command = new CreateDnsObj();
         Console.Clear();
+        Console.WriteLine("- Delete Page -");
+        Console.WriteLine("[B]ack");
+        Console.WriteLine("-----------------------------------------");
+        CreateDnsObj command = new CreateDnsObj();
         Console.WriteLine("Dns Title : ");
         command.Name = Console.ReadLine();
         Console.WriteLine("First Dns : ");

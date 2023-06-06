@@ -1,4 +1,6 @@
-﻿using System.Management;
+﻿using System;
+using System.Linq;
+using System.Management;
 using System.Net.NetworkInformation;
 
 namespace DnsChangerConsole.Services;

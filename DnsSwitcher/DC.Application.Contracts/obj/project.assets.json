@@ -12,6 +12,18 @@
           "bin/placeholder/HelperClass.dll": {}
         }
       }
+    },
+    "net6.0/win-x64": {
+      "HelperClass/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/HelperClass.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HelperClass.dll": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -89,6 +101,11 @@
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.408\\RuntimeIdentifierGraph.json"
+      }
+    },
+    "runtimes": {
+      "win-x64": {
+        "#import": []
       }
     }
   }

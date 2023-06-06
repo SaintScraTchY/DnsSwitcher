@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using System.Diagnostics;
+using System;
+using System.IO;
 using DC.Application;
 using DC.Application.Contracts.DnsObjContracts;
 using DC.Domain.DnsObj;
