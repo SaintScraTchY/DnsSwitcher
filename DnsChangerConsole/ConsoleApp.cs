@@ -107,6 +107,11 @@ public class ConsoleApp
         }
     }
 
+    public void BackButton(string PressedKey)
+    {
+        if (PressedKey=="B" || PressedKey == "b")
+            GoHome();
+    }
     public void CreateDns()
     {
         Console.Clear();
@@ -114,12 +119,19 @@ public class ConsoleApp
         Console.WriteLine("[B]ack");
         Console.WriteLine("-----------------------------------------");
         CreateDnsObj command = new CreateDnsObj();
+        string input;
         Console.WriteLine("Dns Title : ");
-        command.Name = Console.ReadLine();
-        Console.WriteLine("First Dns : ");
-        command.DnsAddresses = Console.ReadLine() + ",";
+        input = Console.ReadLine();
+        BackButton(input);
+        command.Name = input;
+        Console.WriteLine("First Dns : "); 
+        input = Console.ReadLine();
+        BackButton(input);
+        command.DnsAddresses = input + ",";
         Console.WriteLine("Second Dns : ");
-        command.DnsAddresses += Console.ReadLine();
+        input = Console.ReadLine();
+        BackButton(input);
+        command.DnsAddresses += input;
         _dnsObjApplication.Create(command);
         GoHome();;
     }
@@ -135,8 +147,7 @@ public class ConsoleApp
         while (true)
         {
             string PressedKey = Console.ReadLine();
-            if (PressedKey=="B" || PressedKey == "b")
-                GoHome();
+            BackButton(PressedKey);
             int row;
             int Id = WhichRecordPressed(PressedKey);
             if (Id != -1)
@@ -177,9 +188,7 @@ public class ConsoleApp
         while (true)
         {
             string PressedKey = Console.ReadLine();
-            if (PressedKey=="B" || PressedKey == "b")
-                GoHome();
-            
+            BackButton(PressedKey);
             int row;
             int Id = WhichRecordPressed(PressedKey);
             if (Id != -1)
