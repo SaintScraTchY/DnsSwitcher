@@ -18,10 +18,8 @@ namespace DnsChangerConsole
     {
         public static IServiceProvider ServiceProvider { get; private set; }
         private const string  DbName = "DnsDB.db";
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-
-
             Console.WriteLine("Getting Things Ready...");
 
             if (!File.Exists(DbName))
@@ -29,15 +27,7 @@ namespace DnsChangerConsole
                 File.Create(DbName);
                 Console.WriteLine("Please Restart the App for full initialization");
             }
-
-            IHost host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
-            {
-                services.AddTransient<IDnsObjApplication, DnsObjApplication>();
-                services.AddTransient<IDnsObjRepository, DnsObjRepository>();
-                
-                services.AddDbContext<DnsContext>(options => options.UseSqlite(@$"Data Source={DbName}"));
-            }).ConfigureLogging(Logger => Logger.ClearProviders()).Build();
-            
+            var host = await BuildHost();
             ServiceProvider = host.Services;
 
             if (File.Exists(DbName))
@@ -48,6 +38,18 @@ namespace DnsChangerConsole
             ConsoleApp consoleapp = new ConsoleApp(ServiceProvider.GetRequiredService<IDnsObjApplication>());
             consoleapp.GoHome();
             Console.ReadLine();
+        }
+        
+        private static async Task<IHost> BuildHost()
+        {
+             IHost host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
+             {
+                 services.AddTransient<IDnsObjApplication, DnsObjApplication>();
+                 services.AddTransient<IDnsObjRepository, DnsObjRepository>();
+                
+                 services.AddDbContext<DnsContext>(options => options.UseSqlite(@$"Data Source={DbName}"));
+             }).ConfigureLogging(Logger => Logger.ClearProviders()).Build();
+             return host;
         }
 
     }

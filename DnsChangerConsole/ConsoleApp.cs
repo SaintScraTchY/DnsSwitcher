@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DC.Application.Contracts.DnsObjContracts;
+using HelperClass.Application;
 
 namespace DnsChangerConsole;
 
@@ -55,7 +56,16 @@ public class ConsoleApp
 
     public void SetThisDns(int id)
     {
-        _dnsObjApplication.SetDns(id);
+        if (ValidateDnsIndex(id))
+        {
+            OperationResult operationResult = _dnsObjApplication.SetDns(id);
+            if(!operationResult.IsSucceeded)
+                Console.WriteLine(operationResult.Message);
+        }
+        else
+        {
+            Console.WriteLine("There was An Error in your Input");
+        }
     }
 
     public void UnsetDns()
@@ -63,12 +73,28 @@ public class ConsoleApp
         _dnsObjApplication.UnSetDns();
     }
 
+    public bool ValidateDnsIndex(int id)
+    {
+        if (id <= _objs.Count)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public int WhichRecordPressed(string pressedkey)
     {
         int Row;
-        if (int.TryParse(pressedkey,out Row) && !pressedkey.StartsWith("0"))
+        int.TryParse(pressedkey, out Row);
+        if (ValidateDnsIndex(Row) && Row > 0)
         {
-            return _objs[(Row-1)].Id;
+            if (!pressedkey.StartsWith("0"))
+            {
+                return _objs[(Row-1)].Id;
+            }
         }
         return -1;
     }
@@ -101,6 +127,9 @@ public class ConsoleApp
                         break;
                     case "E" or "e":
                         Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("There was An Error in your Input");
                         break;
                 }
             }

@@ -69,7 +69,7 @@ public class DnsObjApplication : IDnsObjApplication
         }
         catch (Exception e)
         {
-            return operationResult.Failed("TODO");
+            return operationResult.Failed("The Dns Index you Requested Does Not Exists");
         }
     }
 
