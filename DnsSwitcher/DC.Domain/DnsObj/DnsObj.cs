@@ -1,34 +1,33 @@
 ﻿using System.Management;
-using System.Net;
 using System.Net.NetworkInformation;
 
 namespace DC.Domain.DnsObj;
 
 public class DnsObj
 {
-    public int Id { get; private set; }
-    public string DnsAddresses { get; private set; }
-    public string Name { get; private set; }
-
     public DnsObj()
     {
-        
     }
+
     public DnsObj(string dnsAddresses, string name)
     {
         DnsAddresses = dnsAddresses;
         Name = name;
     }
 
+    public int Id { get; private set; }
+    public string DnsAddresses { get; private set; }
+    public string Name { get; private set; }
+
     public void Edit(string dnsAddresses, string name)
     {
         DnsAddresses = dnsAddresses;
         Name = name;
     }
-    
+
     public NetworkInterface GetActiveNic()
     {
-        NetworkInterface? Nic = NetworkInterface.GetAllNetworkInterfaces().FirstOrDefault(x =>
+        var Nic = NetworkInterface.GetAllNetworkInterfaces().FirstOrDefault(x =>
             x.OperationalStatus == OperationalStatus.Up &&
             (x.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 ||
              x.NetworkInterfaceType == NetworkInterfaceType.Ethernet) &&
@@ -36,46 +35,60 @@ public class DnsObj
         return Nic;
     }
 
-    public void SetDns()
+    public NIC GetCorrectNIC()
     {
-        NetworkInterface networkInterface = GetActiveNic();
-        if(networkInterface == null)
+        var networkInterface = GetActiveNic();
+        if (networkInterface == null)
             Console.WriteLine("Turn Off your VPN");
-            
+        var nic = new NIC();
         foreach (ManagementObject instance in new ManagementClass("Win32_NetworkAdapterConfiguration").GetInstances())
-        {
-            if ((bool)instance["IPEnabled"] && instance["Description"].ToString().Equals(networkInterface.Description))
+            if ((bool) instance["IPEnabled"] && instance["Description"].ToString().Equals(networkInterface.Description))
             {
-                ManagementBaseObject methodParameters = instance.GetMethodParameters("SetDNSServerSearchOrder");
+                var methodParameters = instance.GetMethodParameters("SetDNSServerSearchOrder");
                 if (methodParameters != null)
                 {
-                    string[] DnsArr = DnsAddresses.Split(',');
-                    methodParameters["DNSServerSearchOrder"] = DnsArr;
-                    instance.InvokeMethod("SetDNSServerSearchOrder", methodParameters, (InvokeMethodOptions)null);
-                    Console.WriteLine("Dns has been Set");
+                    nic = new NIC(methodParameters, instance);
+                    return nic;
                 }
             }
-        }
+
+        return nic;
+    }
+
+    public void SetDns()
+    {
+        var NetworkInterface = GetCorrectNIC();
+        var DnsArr = DnsAddresses.Split(',');
+        NetworkInterface.ManagementBaseObject["DNSServerSearchOrder"] = DnsArr;
+        NetworkInterface.InstanceManagementObject
+            .InvokeMethod("SetDNSServerSearchOrder", NetworkInterface.ManagementBaseObject, null);
     }
 
     public void UnSetDns()
     {
-        NetworkInterface networkInterface = GetActiveNic();
-        if(networkInterface == null)
-            Console.WriteLine("Turn Off your VPN");
-            
-        foreach (ManagementObject instance in new ManagementClass("Win32_NetworkAdapterConfiguration").GetInstances())
+        var NetworkInterface = GetCorrectNIC();
+        NetworkInterface.ManagementBaseObject["DNSServerSearchOrder"] = null;
+        NetworkInterface.InstanceManagementObject
+            .InvokeMethod("SetDNSServerSearchOrder", NetworkInterface.ManagementBaseObject, null);
+    }
+
+    public string GetDns(NetworkInterface networkInterface)
+    {
+        var ipProperties = networkInterface.GetIPProperties();
+        var dnsCollection = ipProperties.DnsAddresses;
+        var dns = "";
+        foreach (var dnsAddress in dnsCollection)
         {
-            if ((bool)instance["IPEnabled"] && instance["Description"].ToString().Equals(networkInterface.Description))
-            {
-                ManagementBaseObject methodParameters = instance.GetMethodParameters("SetDNSServerSearchOrder");
-                if (methodParameters != null)
-                {
-                    methodParameters["DNSServerSearchOrder"] = null;
-                    instance.InvokeMethod("SetDNSServerSearchOrder", methodParameters, (InvokeMethodOptions)null);
-                    Console.WriteLine("Dns Cleared");
-                }
-            }
+            dns += dnsAddress;
+            if (dnsCollection.First() == dnsAddress)
+                dns += ",";
         }
+
+        return dns;
+    }
+
+    public string GetCurrentDns()
+    {
+        return GetDns(GetActiveNic());
     }
 }

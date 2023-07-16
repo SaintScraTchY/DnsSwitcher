@@ -6,20 +6,16 @@ namespace DC.Infrastructure.SQlite;
 
 public class DnsContext : DbContext
 {
-    public DbSet<DnsObj> Dnses { get; set; }
-
     public DnsContext(DbContextOptions<DnsContext> options) : base(options)
     {
-        
     }
+
+    public DbSet<DnsObj> Dnses { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseSqlite(@"Data Source=DnsDB.db");
-        }
-        base.OnConfiguring(optionsBuilder );
+        if (!optionsBuilder.IsConfigured) optionsBuilder.UseSqlite(@"Data Source=DnsDB.db");
+        base.OnConfiguring(optionsBuilder);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -10,6 +10,7 @@ public interface IDnsObjRepository
     List<DnsObjViewModel> GetAll();
     void Delete(int id);
     DnsObj FindBy(int id);
+    DnsObjViewModel FindBy(string dns);
     EditDnsObj GetDetail(int id);
-    bool Exists(Expression<Func<DnsObj,bool>> expression);
+    bool Exists(Expression<Func<DnsObj, bool>> expression);
 }

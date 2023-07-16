@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DC.Application.Contracts\DC.Application.Contracts.csproj" />
+        <ProjectReference Include="..\DC.Application.Contracts\DC.Application.Contracts.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.Management" Version="6.0.1" />
+        <PackageReference Include="System.Management" Version="6.0.1"/>
     </ItemGroup>
 
 </Project>

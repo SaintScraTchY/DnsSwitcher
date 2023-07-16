@@ -11,4 +11,5 @@ public interface IDnsObjApplication
     List<DnsObjViewModel> GetAll();
     OperationResult SetDns(int id);
     OperationResult UnSetDns();
+    DnsObjViewModel GetCurrentDns();
 }

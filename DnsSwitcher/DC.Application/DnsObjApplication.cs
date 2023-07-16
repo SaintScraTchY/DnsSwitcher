@@ -17,9 +17,9 @@ public class DnsObjApplication : IDnsObjApplication
     public OperationResult Create(CreateDnsObj command)
     {
         OperationResult operationResult = new();
-        if (_dnsObjRepository.Exists(x=>x.Name == command.Name))
+        if (_dnsObjRepository.Exists(x => x.Name == command.Name))
             return operationResult.Failed(ApplicationMessages.DuplicatedRecord);
-        DnsObj dnsObj = new DnsObj(command.DnsAddresses, command.Name);
+        var dnsObj = new DnsObj(command.DnsAddresses, command.Name);
         _dnsObjRepository.Create(dnsObj);
         _dnsObjRepository.Save();
         return operationResult.Succeeded();
@@ -28,10 +28,7 @@ public class DnsObjApplication : IDnsObjApplication
     public OperationResult Delete(int id)
     {
         OperationResult operationResult = new();
-        if (!_dnsObjRepository.Exists(x=>x.Id==id))
-        {
-            return operationResult.Failed("TODO");
-        }
+        if (!_dnsObjRepository.Exists(x => x.Id == id)) return operationResult.Failed("TODO");
         _dnsObjRepository.Delete(id);
         _dnsObjRepository.Save();
         return operationResult.Succeeded();
@@ -44,11 +41,11 @@ public class DnsObjApplication : IDnsObjApplication
 
     public OperationResult Edit(EditDnsObj command)
     {
-        OperationResult operationResult =new();
-        if (_dnsObjRepository.Exists(x=>x.Name ==command.Name && x.Id != command.Id))
+        OperationResult operationResult = new();
+        if (_dnsObjRepository.Exists(x => x.Name == command.Name && x.Id != command.Id))
             return operationResult.Failed(ApplicationMessages.DuplicatedRecord);
-        DnsObj editDnsObj = _dnsObjRepository.FindBy(command.Id);
-        editDnsObj.Edit(command.DnsAddresses,command.Name);
+        var editDnsObj = _dnsObjRepository.FindBy(command.Id);
+        editDnsObj.Edit(command.DnsAddresses, command.Name);
         _dnsObjRepository.Save();
         return operationResult.Succeeded();
     }
@@ -61,7 +58,7 @@ public class DnsObjApplication : IDnsObjApplication
     public OperationResult SetDns(int id)
     {
         OperationResult operationResult = new();
-        DnsObj dnsObj = _dnsObjRepository.FindBy(id);
+        var dnsObj = _dnsObjRepository.FindBy(id);
         try
         {
             dnsObj.SetDns();
@@ -76,7 +73,7 @@ public class DnsObjApplication : IDnsObjApplication
     public OperationResult UnSetDns()
     {
         OperationResult operationResult = new();
-        DnsObj dnsObj = new DnsObj();
+        var dnsObj = new DnsObj();
         try
         {
             dnsObj.UnSetDns();
@@ -86,5 +83,15 @@ public class DnsObjApplication : IDnsObjApplication
         {
             return operationResult.Failed("TODO");
         }
+    }
+
+    public DnsObjViewModel GetCurrentDns()
+    {
+        DnsObjViewModel dnsObjViewModel = new();
+        DnsObj dnsObj = new();
+        dnsObjViewModel.DnsAddresses = dnsObj.GetCurrentDns();
+        if (_dnsObjRepository.Exists(x => x.DnsAddresses == dnsObjViewModel.DnsAddresses))
+            dnsObjViewModel = _dnsObjRepository.FindBy(dnsObjViewModel.DnsAddresses);
+        return dnsObjViewModel;
     }
 }

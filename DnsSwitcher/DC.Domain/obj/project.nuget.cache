@@ -1,15 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "3cT97PVj0q+o8nlU0S4bKkx9xkZ9edZOa4NosU3IKKixF51tcDcxbs6nWxicJQu97P0mXnpw6tZfyqxKufw8Eg==",
+  "dgSpecHash": "QzTCv6czu8Uwao7oe07j1w6hcb6NxMPfpFuZJ7WJhiXDVIwNcPPav/sDNXaEycktbv16+k1lmXZW9dmmzuuKzA==",
   "success": true,
   "projectFilePath": "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Domain\\DC.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ScraTchY\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
-    "C:\\Users\\ScraTchY\\.nuget\\packages\\system.management\\6.0.1\\system.management.6.0.1.nupkg.sha512",
-    "C:\\Users\\ScraTchY\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\6.0.16\\microsoft.netcore.app.runtime.win-x64.6.0.16.nupkg.sha512",
-    "C:\\Users\\ScraTchY\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\6.0.16\\microsoft.windowsdesktop.app.runtime.win-x64.6.0.16.nupkg.sha512",
-    "C:\\Users\\ScraTchY\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\6.0.16\\microsoft.aspnetcore.app.runtime.win-x64.6.0.16.nupkg.sha512",
-    "C:\\Users\\ScraTchY\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\6.0.16\\microsoft.netcore.app.crossgen2.win-x64.6.0.16.nupkg.sha512"
+    "C:\\Users\\ScraTchY\\.nuget\\packages\\system.management\\6.0.1\\system.management.6.0.1.nupkg.sha512"
   ],
   "logs": []
 }

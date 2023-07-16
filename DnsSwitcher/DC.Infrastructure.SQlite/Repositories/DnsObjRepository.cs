@@ -43,6 +43,16 @@ public class DnsObjRepository : IDnsObjRepository
         return _context.Dnses.FirstOrDefault(x => x.Id == id);
     }
 
+    public DnsObjViewModel FindBy(string dns)
+    {
+        return _context.Dnses.Select(x => new DnsObjViewModel
+        {
+            Id = x.Id,
+            Name = x.Name,
+            DnsAddresses = x.DnsAddresses
+        }).FirstOrDefault(x => x.DnsAddresses == dns);
+    }
+
     public EditDnsObj GetDetail(int id)
     {
         return _context.Dnses.Select(x => new EditDnsObj

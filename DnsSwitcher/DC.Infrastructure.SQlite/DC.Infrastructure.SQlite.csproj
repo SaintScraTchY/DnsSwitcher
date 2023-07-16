@@ -7,16 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.16" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.16">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.16" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.16"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.16">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.16"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DC.Domain\DC.Domain.csproj" />
+        <ProjectReference Include="..\DC.Domain\DC.Domain.csproj"/>
     </ItemGroup>
 
 </Project>
