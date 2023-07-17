@@ -4,11 +4,12 @@ public class OperationResult
 {
     public OperationResult()
     {
+        Message = string.Empty;
         IsSucceeded = false;
     }
 
-    public bool IsSucceeded { get; set; }
-    public string Message { get; set; }
+    public bool IsSucceeded { get; private set; }
+    public string Message { get; private set; }
 
     public OperationResult Succeeded(string message = "Task Succeeded")
     {

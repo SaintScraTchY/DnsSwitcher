@@ -19,6 +19,7 @@ internal class Program
 
     public static async Task Main(string[] args)
     {
+        var host = await BuildHost();
         Console.WriteLine("Getting Things Ready...");
 
         if (!File.Exists(DbName))
@@ -27,7 +28,6 @@ internal class Program
             Console.WriteLine("Please Restart the App for full initialization");
         }
 
-        var host = await BuildHost();
         ServiceProvider = host.Services;
 
         if (File.Exists(DbName)) ServiceProvider.GetRequiredService<DnsContext>().Database.Migrate();

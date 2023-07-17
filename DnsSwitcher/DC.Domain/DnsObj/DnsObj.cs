@@ -74,16 +74,21 @@ public class DnsObj
 
     public string GetDns(NetworkInterface networkInterface)
     {
-        var ipProperties = networkInterface.GetIPProperties();
-        var dnsCollection = ipProperties.DnsAddresses;
-        var dns = "";
-        foreach (var dnsAddress in dnsCollection)
-        {
-            dns += dnsAddress;
-            if (dnsCollection.First() == dnsAddress)
-                dns += ",";
-        }
-
+        // var NetworkInterface = GetCorrectNIC();
+        // object dnsobj = NetworkInterface.ManagementBaseObject["DNSServerSearchOrder"];
+        //
+        // string dnsstring = (string) dnsobj;
+        // return dnsstring;
+        //
+         var ipProperties = networkInterface.GetIPProperties();
+         var dnsCollection = ipProperties.DnsAddresses;
+         var dns = "";
+         foreach (var dnsAddress in dnsCollection)
+         {
+             dns += dnsAddress;
+             if (dnsCollection.First() == dnsAddress)
+                 dns += ",";
+         }
         return dns;
     }
 

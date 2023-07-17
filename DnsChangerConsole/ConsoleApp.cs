@@ -1,4 +1,5 @@
 ﻿using DC.Application.Contracts.DnsObjContracts;
+using HelperClass.Application;
 
 namespace DnsChangerConsole;
 
@@ -6,6 +7,7 @@ public class ConsoleApp
 {
     private readonly IDnsObjApplication _dnsObjApplication;
     private List<DnsObjViewModel>? _objs;
+    private string _currentDns;
 
     public ConsoleApp(IDnsObjApplication dnsObjApplication)
     {
@@ -70,12 +72,20 @@ public class ConsoleApp
     public void UpdateCurrentDns()
     {
         var CurrentDns = _dnsObjApplication.GetCurrentDns();
+        _currentDns = CurrentDns.DnsAddresses;
         string CurrentDnsText;
         if (!string.IsNullOrWhiteSpace(CurrentDns.DnsAddresses))
         {
             CurrentDnsText = CurrentDns.DnsAddresses;
             if (!string.IsNullOrWhiteSpace(CurrentDns.Name))
+            {
                 CurrentDnsText += " | " + CurrentDns.Name;
+                
+            }
+            else
+            {
+                CurrentDnsText += " | " + "This Dns Does Exists in Database , You can Add it by Pressing 'N'";
+            }
         }
         else
         {
@@ -88,6 +98,7 @@ public class ConsoleApp
     public void UnsetDns()
     {
         _dnsObjApplication.UnSetDns();
+        GoHome();
     }
 
     public bool ValidateDnsIndex(int id)
@@ -132,6 +143,9 @@ public class ConsoleApp
                     case "D" or "d":
                         DeleteDns();
                         break;
+                    case "N" or "n":
+                        CreateDns(_currentDns);
+                        break;
                     case "E" or "e":
                         Environment.Exit(0);
                         break;
@@ -151,7 +165,7 @@ public class ConsoleApp
     public void CreateDns()
     {
         Console.Clear();
-        Console.WriteLine("- Delete Page -");
+        Console.WriteLine("- Create New DNS -");
         Console.WriteLine(ConsoleHelper.BackButton);
         Console.WriteLine(ConsoleHelper.DashLine);
         var command = new CreateDnsObj();
@@ -168,9 +182,29 @@ public class ConsoleApp
         input = Console.ReadLine();
         BackButton(input);
         command.DnsAddresses += input;
-        _dnsObjApplication.Create(command);
+        OperationResult operationResult =_dnsObjApplication.Create(command);
         GoHome();
-        ;
+        if(operationResult.IsSucceeded==false)
+            Console.WriteLine(operationResult.Message);
+    }
+
+    public void CreateDns(string newdnsAddress)
+    {
+        Console.Clear();
+        Console.WriteLine("- Create New DNS -");
+        Console.WriteLine(ConsoleHelper.BackButton);
+        Console.WriteLine(ConsoleHelper.DashLine);
+        var command = new CreateDnsObj();
+        string input;
+        Console.WriteLine("Dns Title : ");
+        input = Console.ReadLine();
+        BackButton(input);
+        command.Name = input;
+        command.DnsAddresses = newdnsAddress;
+        OperationResult operationResult =_dnsObjApplication.Create(command);
+        GoHome();
+        if(operationResult.IsSucceeded==false)
+            Console.WriteLine(operationResult.Message);
     }
 
     public void ModifyDns()
@@ -222,9 +256,25 @@ public class ConsoleApp
                     editDnsObj.DnsAddresses += InputValue;
 
                 Console.WriteLine(ConsoleHelper.DashLine);
-                if (ConsoleHelper.CheckConsentFor("Modify", editDnsObj.Id)) _dnsObjApplication.Edit(editDnsObj);
-
-                ModifyDns();
+                if (ConsoleHelper.CheckConsentFor("Modify", editDnsObj.Id))
+                {
+                    OperationResult operationResult = _dnsObjApplication.Edit(editDnsObj);
+                    if (operationResult.IsSucceeded == false)
+                    {
+                        ModifyDns();
+                        Console.WriteLine(operationResult.Message);
+                    }
+                    else
+                    {
+                        ModifyDns();
+                    }
+                        
+                }
+                else
+                {
+                    ModifyDns();
+                }
+                
             }
         }
     }

@@ -17,7 +17,7 @@ public class DnsObjApplication : IDnsObjApplication
     public OperationResult Create(CreateDnsObj command)
     {
         OperationResult operationResult = new();
-        if (_dnsObjRepository.Exists(x => x.Name == command.Name))
+        if (_dnsObjRepository.Exists(x => x.Name == command.Name || x.DnsAddresses == command.DnsAddresses))
             return operationResult.Failed(ApplicationMessages.DuplicatedRecord);
         var dnsObj = new DnsObj(command.DnsAddresses, command.Name);
         _dnsObjRepository.Create(dnsObj);
@@ -28,7 +28,8 @@ public class DnsObjApplication : IDnsObjApplication
     public OperationResult Delete(int id)
     {
         OperationResult operationResult = new();
-        if (!_dnsObjRepository.Exists(x => x.Id == id)) return operationResult.Failed("TODO");
+        if (!_dnsObjRepository.Exists(x => x.Id == id))
+            return operationResult.Failed(ApplicationMessages.RequestedRecordNotExists);
         _dnsObjRepository.Delete(id);
         _dnsObjRepository.Save();
         return operationResult.Succeeded();
@@ -59,14 +60,14 @@ public class DnsObjApplication : IDnsObjApplication
     {
         OperationResult operationResult = new();
         var dnsObj = _dnsObjRepository.FindBy(id);
+        dnsObj.SetDns();
+        return operationResult.Succeeded();
         try
         {
-            dnsObj.SetDns();
-            return operationResult.Succeeded();
         }
         catch (Exception e)
         {
-            return operationResult.Failed("The Dns Index you Requested Does Not Exists");
+            return operationResult.Failed(ApplicationMessages.DnsChangeFailed);
         }
     }
 
@@ -74,14 +75,14 @@ public class DnsObjApplication : IDnsObjApplication
     {
         OperationResult operationResult = new();
         var dnsObj = new DnsObj();
+        dnsObj.UnSetDns();
+        return operationResult.Succeeded();
         try
         {
-            dnsObj.UnSetDns();
-            return operationResult.Succeeded();
         }
         catch (Exception e)
         {
-            return operationResult.Failed("TODO");
+            return operationResult.Failed(ApplicationMessages.DnsUnSetFailed);
         }
     }
 

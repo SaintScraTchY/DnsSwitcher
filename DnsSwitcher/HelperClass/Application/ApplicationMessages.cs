@@ -3,7 +3,7 @@
 public static class ApplicationMessages
 {
     public const string DuplicatedRecord = "Error,Duplication Found";
-    public const string RecordNotFound = "Error,Your Requested Record were not Found";
-    public const string DnsChangeSucceeded = "Your Dns have Been Set to ";
-    public const string DnsChangeFailed = "Your Dns have Been Set to ";
+    public const string RequestedRecordNotExists = "The Dns Index you Requested Does Not Exists";
+    public const string DnsUnSetFailed = "An Error Occured while Clearing DNS";
+    public const string DnsChangeFailed = "An Error Occured while Changing DNS";
 }
