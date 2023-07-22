@@ -51,7 +51,6 @@ public class DnsObj
                     return nic;
                 }
             }
-
         return nic;
     }
 
@@ -74,12 +73,6 @@ public class DnsObj
 
     public string GetDns(NetworkInterface networkInterface)
     {
-        // var NetworkInterface = GetCorrectNIC();
-        // object dnsobj = NetworkInterface.ManagementBaseObject["DNSServerSearchOrder"];
-        //
-        // string dnsstring = (string) dnsobj;
-        // return dnsstring;
-        //
          var ipProperties = networkInterface.GetIPProperties();
          var dnsCollection = ipProperties.DnsAddresses;
          var dns = "";

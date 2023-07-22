@@ -41,8 +41,8 @@ internal class Program
     {
         var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
         {
-            services.AddTransient<IDnsObjApplication, DnsObjApplication>();
-            services.AddTransient<IDnsObjRepository, DnsObjRepository>();
+            services.AddSingleton<IDnsObjApplication, DnsObjApplication>();
+            services.AddSingleton<IDnsObjRepository, DnsObjRepository>();
 
             services.AddDbContext<DnsContext>(options => options.UseSqlite(@$"Data Source={DbName}"));
         }).ConfigureLogging(Logger => Logger.ClearProviders()).Build();
