@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "3NC0yfqkxG5ZW8new0P5PXdRhM5Bfjj+ArH2RCe3NcAauYWzQGftHpHDI+OWCh9BJV+ugckh3WV2ne2oh7p7Xw==",
+  "dgSpecHash": "vMf19W4ZhnTN7kDkj3+izVRLFKrIeZeDO62FmJH2sLg2WWWZbQO35L6gsh6EEc4usQnBSy55A1UO+cTJmY99OA==",
   "success": true,
   "projectFilePath": "J:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\HelperClass\\HelperClass.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\ScraTchY\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\6.0.16\\microsoft.netcore.app.runtime.win-x64.6.0.16.nupkg.sha512",
+    "C:\\Users\\ScraTchY\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\6.0.16\\microsoft.windowsdesktop.app.runtime.win-x64.6.0.16.nupkg.sha512",
+    "C:\\Users\\ScraTchY\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\6.0.16\\microsoft.aspnetcore.app.runtime.win-x64.6.0.16.nupkg.sha512",
+    "C:\\Users\\ScraTchY\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\6.0.16\\microsoft.netcore.app.crossgen2.win-x64.6.0.16.nupkg.sha512"
+  ],
   "logs": []
 }

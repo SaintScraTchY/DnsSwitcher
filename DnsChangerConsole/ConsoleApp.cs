@@ -14,6 +14,16 @@ public class ConsoleApp
         _dnsObjApplication = dnsObjApplication;
     }
 
+    public void TextWhite()
+    {
+        Console.ForegroundColor = ConsoleColor.White;
+    }
+    
+    public void TextGreen()
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+    }
+
     public void StartApp()
     {
         Console.WriteLine(ConsoleHelper.DashLine);
@@ -57,7 +67,7 @@ public class ConsoleApp
         }
         else
         {
-            Console.WriteLine("No Records were Found try Creating some");
+            Console.WriteLine(ConsoleHelper.NoRecordsFound);
         }
     }
 
@@ -72,27 +82,7 @@ public class ConsoleApp
     public void UpdateCurrentDns()
     {
         var CurrentDns = _dnsObjApplication.GetCurrentDns();
-        _currentDns = CurrentDns.DnsAddresses;
-        string CurrentDnsText;
-        if (!string.IsNullOrWhiteSpace(CurrentDns.DnsAddresses))
-        {
-            CurrentDnsText = CurrentDns.DnsAddresses;
-            if (!string.IsNullOrWhiteSpace(CurrentDns.Name))
-            {
-                CurrentDnsText += " | " + CurrentDns.Name;
-                
-            }
-            else
-            {
-                CurrentDnsText += " | " + "This Dns Does Exists in Database , You can Add it by Pressing 'N'";
-            }
-        }
-        else
-        {
-            CurrentDnsText = "No Dns Have Been Set";
-        }
-
-        Console.WriteLine(CurrentDnsText);
+        _currentDns = ConsoleHelper.DisplayCurrentDns(CurrentDns);
     }
 
     public void UnsetDns()
@@ -162,6 +152,14 @@ public class ConsoleApp
             GoHome();
     }
 
+    public void CreateThisDns(CreateDnsObj command)
+    {
+        OperationResult operationResult =_dnsObjApplication.Create(command);
+        GoHome();
+        if(operationResult.IsSucceeded==false)
+            Console.WriteLine(operationResult.Message);
+    }
+
     public void CreateDns()
     {
         Console.Clear();
@@ -171,21 +169,24 @@ public class ConsoleApp
         var command = new CreateDnsObj();
         string input;
         Console.WriteLine("Dns Title : ");
+        TextWhite();
         input = Console.ReadLine();
+        TextGreen();
         BackButton(input);
         command.Name = input;
         Console.WriteLine("First Dns : ");
+        TextWhite();
         input = Console.ReadLine();
+        TextGreen();
         BackButton(input);
         command.DnsAddresses = input + ",";
         Console.WriteLine("Second Dns : ");
+        TextWhite();
         input = Console.ReadLine();
+        TextGreen();
         BackButton(input);
         command.DnsAddresses += input;
-        OperationResult operationResult =_dnsObjApplication.Create(command);
-        GoHome();
-        if(operationResult.IsSucceeded==false)
-            Console.WriteLine(operationResult.Message);
+        CreateThisDns(command);
     }
 
     public void CreateDns(string newdnsAddress)
@@ -197,14 +198,14 @@ public class ConsoleApp
         var command = new CreateDnsObj();
         string input;
         Console.WriteLine("Dns Title : ");
+        TextWhite();
         input = Console.ReadLine();
+        TextGreen();
         BackButton(input);
         command.Name = input;
         command.DnsAddresses = newdnsAddress;
         OperationResult operationResult =_dnsObjApplication.Create(command);
-        GoHome();
-        if(operationResult.IsSucceeded==false)
-            Console.WriteLine(operationResult.Message);
+        CreateThisDns(command);
     }
 
     public void ModifyDns()
@@ -228,7 +229,9 @@ public class ConsoleApp
                 while (true)
                 {
                     ConsoleHelper.ModifyTextFor("Title", editDnsObj.Name);
+                    TextWhite();
                     InputValue = Console.ReadLine();
+                    TextGreen();
                     if (string.IsNullOrWhiteSpace(InputValue))
                     {
                         ConsoleHelper.DisplayErrorFor(ConsoleHelper.NullInput, "Title");
@@ -242,14 +245,18 @@ public class ConsoleApp
 
                 var DnsTemp = editDnsObj.DnsAddresses.Split(',');
                 ConsoleHelper.ModifyTextFor("First DNS", DnsTemp[0]);
+                TextWhite();
                 InputValue = Console.ReadLine();
+                TextGreen();
                 if (string.IsNullOrWhiteSpace(InputValue))
                     editDnsObj.DnsAddresses = DnsTemp[0] + ",";
                 else
                     editDnsObj.DnsAddresses = InputValue + ",";
 
                 ConsoleHelper.ModifyTextFor("Second DNS", DnsTemp[0]);
+                TextWhite();
                 InputValue = Console.ReadLine();
+                TextGreen();
                 if (string.IsNullOrWhiteSpace(InputValue))
                     editDnsObj.DnsAddresses += DnsTemp[1];
                 else
