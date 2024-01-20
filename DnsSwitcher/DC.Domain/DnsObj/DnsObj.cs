@@ -4,13 +4,15 @@ using SQLite;
 
 namespace DC.Domain.DnsObj;
 
+[Table("Dns")]
 public class DnsObj
 {
-    public int Id { get; private set; }
-    public string DnsAddresses { get; private set; }
-    public string Name { get; private set; }
-    public DateTime CreationDate { get; private set; }
-    public DateTime ModifiedDate { get; private set; }
+    [PrimaryKey,AutoIncrement]
+    public int Id { get; set; }
+    public string DnsAddresses { get; set; }
+    public string Name { get; set; }
+    public DateTime CreationDate { get; set; }
+    public DateTime ModifiedDate { get; set; }
 
     public DnsObj()
     {

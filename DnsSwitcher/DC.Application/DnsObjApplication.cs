@@ -64,7 +64,7 @@ public class DnsObjApplication : IDnsObjApplication
     {
         OperationResult operationResult = new();
         var dnsObj = await _dnsObjRepository.FindByAsync(id);
-        //dnsObj.SetDns();
+        _networkInterface.SetDns(dnsObj.DnsAddresses);
         return operationResult.Succeeded();
         // try
         // {
@@ -78,8 +78,7 @@ public class DnsObjApplication : IDnsObjApplication
     public async Task<OperationResult> UnSetDns()
     {
         OperationResult operationResult = new();
-        var dnsObj = new DnsObj();
-        //dnsObj.UnSetDns();
+        _networkInterface.UnSetDns();
         return operationResult.Succeeded();
         // try
         // {
@@ -93,7 +92,6 @@ public class DnsObjApplication : IDnsObjApplication
     public async Task<DnsObjViewModel> GetCurrentDns()
     {
         DnsObjViewModel dnsObjViewModel = new();
-        DnsObj dnsObj = new();
         dnsObjViewModel.DnsAddresses = _networkInterface.GetDns();
         if (await _dnsObjRepository.Exists(x => x.DnsAddresses == dnsObjViewModel.DnsAddresses))
             dnsObjViewModel = await _dnsObjRepository.FindByAsync(dnsObjViewModel.DnsAddresses);

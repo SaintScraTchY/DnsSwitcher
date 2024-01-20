@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DnsChangerConsole")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4d4eb9fc4d30bc8c492725d27dbe9e9abb3ff24b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+94797963befc9f645b5255bb79be213671a15ae0")]
 [assembly: System.Reflection.AssemblyProductAttribute("DnsChangerConsole")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DnsChangerConsole")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "Bk1uOe2xE2dtAVsB0VExHcbxtAPYkGGcI5qLZEmyXpEAEMqMWzlR81tGIB97h+i38n0mtFT2eTvidLEiO+ErRQ==",
+  "dgSpecHash": "Oq6lgxjGdRveNPvgOoFdbX9hmg7rQNJqWeXKuMzpTNLhw+kVVhTB047gfv8LaWEa7iJ5q9roW+yBZJwVjrapJQ==",
   "success": true,
   "projectFilePath": "D:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\HelperClass\\HelperClass.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.26\\microsoft.netcore.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.26\\microsoft.windowsdesktop.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.26\\microsoft.aspnetcore.app.ref.6.0.26.nupkg.sha512"
+    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.1\\microsoft.net.illink.tasks.8.0.1.nupkg.sha512",
+    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.1\\microsoft.netcore.app.runtime.win-x64.8.0.1.nupkg.sha512",
+    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\8.0.1\\microsoft.windowsdesktop.app.runtime.win-x64.8.0.1.nupkg.sha512",
+    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\8.0.1\\microsoft.aspnetcore.app.runtime.win-x64.8.0.1.nupkg.sha512",
+    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\8.0.1\\microsoft.netcore.app.crossgen2.win-x64.8.0.1.nupkg.sha512"
   ],
   "logs": []
 }

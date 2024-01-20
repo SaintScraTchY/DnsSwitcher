@@ -11,45 +11,69 @@ public class DnsObjRepository : IDnsObjRepository
     public DnsObjRepository(DnsContext context)
     {
         _context = context;
+        _context.InitAsync();
     }
 
     public async Task<bool> CreateAsync(DnsObj entity)
     {
+        await _context.InitAsync();
         return await _context.Database.InsertAsync(entity) > 0;
     }
 
     public async Task<bool> UpdateAsync(DnsObj entity)
     {
+        await _context.InitAsync();
         return await _context.Database.UpdateAsync(entity) > 0;
     }
 
-    public Task<List<DnsObjViewModel>> GetAllAsync()
+    public async Task<List<DnsObjViewModel>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        await _context.InitAsync();
+        var rawList = await _context.Database.Table<DnsObj>().ToListAsync();
+        List<DnsObjViewModel> dnsList = new();
+        foreach (var dnsObj in rawList)
+        {
+            var toBeAdd = new DnsObjViewModel(dnsObj.Id, dnsObj.Name, dnsObj.DnsAddresses);
+            dnsList.Add(toBeAdd);
+        }
+        return dnsList;
     }
 
-    public Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        await _context.InitAsync();
+        var entity = FindByAsync(id);
+        return await _context.Database.DeleteAsync(entity) > 0;
     }
 
-    public Task<DnsObj> FindByAsync(int id)
+    public async Task<DnsObj> FindByAsync(int id)
     {
-        throw new NotImplementedException();
+        await _context.InitAsync();
+        return await _context.Database.GetAsync<DnsObj>(id);
     }
 
-    public Task<DnsObjViewModel> FindByAsync(string dns)
+    public async Task<DnsObjViewModel> FindByAsync(string dns)
     {
-        throw new NotImplementedException();
+        await _context.InitAsync();
+        DnsObj entity = await _context.Database.Table<DnsObj>().FirstOrDefaultAsync(x=>x.DnsAddresses == dns);
+        return new DnsObjViewModel(entity.Id, entity.Name, entity.DnsAddresses);
     }
 
-    public Task<EditDnsObj> GetDetailAsync(int id)
+    public async Task<EditDnsObj> GetDetailAsync(int id)
     {
-        throw new NotImplementedException();
+        await _context.InitAsync();
+        DnsObj entity = await FindByAsync(id);
+        return new EditDnsObj(entity.DnsAddresses, entity.Name, entity.Id);
     }
 
-    public Task<bool> Exists(Expression<Func<DnsObj, bool>> expression)
+    public async Task<bool> Exists(Expression<Func<DnsObj, bool>> expression)
     {
-        throw new NotImplementedException();
+        await _context.InitAsync();
+        var result = await _context.Database.Table<DnsObj>().FirstOrDefaultAsync(expression);
+        
+        if (result is null)
+            return false;
+
+        return true;
     }
 }

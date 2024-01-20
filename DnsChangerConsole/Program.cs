@@ -2,12 +2,12 @@
 using DC.Application.Contracts.DnsObjContracts;
 using DC.Application.NetworkInterfaceHelper;
 using DC.Domain.DnsObj;
-using DC.Infrastructure.SQlite;
-using DC.Infrastructure.SQlite.Repositories;
-using Microsoft.EntityFrameworkCore;
+using DC.Infrastructure.SQlitePCL;
+using DC.Infrastructure.SQlitePCL.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DnsChangerConsole;
 
@@ -15,36 +15,39 @@ internal static class Program
 {
     private const string DbName = "DnsDB.db";
     private static IServiceProvider ServiceProvider { get; set; }
-
+    [RequiresUnreferencedCode("using main")]
     public static async Task Main(string[] args)
     {
+        string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DbName);
         var host = await BuildHost();
+        ServiceProvider = host.Services;
         Console.WriteLine("Getting Things Ready...");
 
-        if (!File.Exists(DbName))
-        {
-            File.Create(DbName);
-            Console.WriteLine("Please Restart the App for full initialization");
-        }
+        // if (!File.Exists(DbName))
+        // {
+        //     File.Create(DbName);
+        //     Console.WriteLine("Please Restart the App for full initialization");
+        // }
 
-        ServiceProvider = host.Services;
-
-        if (File.Exists(DbName)) ServiceProvider.GetRequiredService<DnsContext>().Database.Migrate();
+        //if (File.Exists(DbName)) ServiceProvider.GetRequiredService<DnsContext>().Database.Migrate();
 
         var consoleapp = new ConsoleApp(ServiceProvider.GetRequiredService<IDnsObjApplication>());
-        await consoleapp.GoHome();
+        consoleapp.GoHome();
         Console.ReadLine();
     }
-
+    [RequiresUnreferencedCode("using injection")]
     private static async Task<IHost> BuildHost()
     {
         var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
         {
-            services.AddTransient<NetworkInterfaceClass>();
-            services.AddTransient<IDnsObjRepository, DnsObjRepository>();
-            services.AddTransient<IDnsObjApplication, DnsObjApplication>();
+            services.AddSingleton<NetworkInterfaceClass>();
+            services.AddSingleton<IDnsObjRepository, DnsObjRepository>();
+            services.AddSingleton<IDnsObjApplication, DnsObjApplication>();
 
-            services.AddDbContext<DnsContext>(options => options.UseSqlite(@$"Data Source={DbName}"));
+            services.AddSingleton<DnsContext>(db => ActivatorUtilities.CreateInstance<DnsContext>(db,DbName));
+
+            //services.AddDbContext<DnsContext>(options => options.UseSqlite(@$"Data Source={DbName}"));
+            
         }).ConfigureLogging(Logger => Logger.ClearProviders()).Build();
         return host;
     }

@@ -35,13 +35,13 @@ public class ConsoleApp
         Console.WriteLine("[E]xit");
     }
 
-    public async Task GoHome()
+    public void GoHome()
     {
         Console.Clear();
         Dash();
-        await UpdateCurrentDns();
+        UpdateCurrentDns().Wait(timeout: TimeSpan.FromSeconds(5));
         StartApp();
-        await MainPage();
+        MainPage();
     }
 
     private void Dash()
@@ -51,11 +51,11 @@ public class ConsoleApp
         Console.ForegroundColor = ConsoleColor.White;
     }
 
-    private async Task LoopDns(ConsoleColor color)
+    private async void LoopDns(ConsoleColor color)
     {
         Console.WriteLine(ConsoleHelper.DashLine);
         Console.ForegroundColor = color;
-        _objs =  await _dnsObjApplication.GetAll();
+        _objs = await _dnsObjApplication.GetAll();
         if (_objs.Count > 0)
         {
             var i = 1;
@@ -71,12 +71,12 @@ public class ConsoleApp
         }
     }
 
-    private async Task SetThisDns(int id)
+    private async void SetThisDns(int id)
     {
         var operationResult = await _dnsObjApplication.SetDns(id);
         if (!operationResult.IsSucceeded)
             Console.WriteLine(operationResult.Message);
-        await GoHome();
+        GoHome();
     }
 
     private async Task UpdateCurrentDns()
@@ -85,10 +85,10 @@ public class ConsoleApp
         _currentDns = ConsoleHelper.DisplayCurrentDns(currentDns);
     }
 
-    private async Task UnsetDns()
+    private void UnsetDns()
     {
-        await _dnsObjApplication.UnSetDns();
-        await GoHome();
+        _dnsObjApplication.UnSetDns();
+        GoHome();
     }
 
     private bool ValidateDnsIndex(int id)
@@ -109,15 +109,15 @@ public class ConsoleApp
         return -1;
     }
 
-    private async Task MainPage()
+    private void MainPage()
     {
-        await LoopDns(ConsoleColor.Green);
+        LoopDns(ConsoleColor.Green);
         while (true)
         {
             var pressedKey = Console.ReadLine();
             var Id = WhichRecordPressed(pressedKey);
             if (Id != -1)
-                await SetThisDns(Id);
+                SetThisDns(Id);
             else
                 switch (pressedKey)
                 {
@@ -128,7 +128,7 @@ public class ConsoleApp
                         UnsetDns();
                         break;
                     case "M" or "m":
-                        await ModifyDns();
+                        ModifyDns();
                         break;
                     case "D" or "d":
                         DeleteDns();
@@ -146,21 +146,21 @@ public class ConsoleApp
         }
     }
 
-    private async Task BackButton(string pressedKey)
+    private void BackButton(string pressedKey)
     {
         if (pressedKey == "B" || pressedKey == "b")
-           await GoHome();
+            GoHome();
     }
 
-    private async Task CreateThisDns(CreateDnsObj command)
+    private async void CreateThisDns(CreateDnsObj command)
     {
         OperationResult operationResult = await _dnsObjApplication.Create(command);
-        await GoHome();
+        GoHome();
         if(operationResult.IsSucceeded==false)
             Console.WriteLine(operationResult.Message);
     }
 
-    private async Task CreateDns()
+    private void CreateDns()
     {
         Console.Clear();
         Console.WriteLine("- Create New DNS -");
@@ -172,24 +172,24 @@ public class ConsoleApp
         TextWhite();
         input = Console.ReadLine();
         TextGreen();
-        await BackButton(input);
+         BackButton(input);
         command.Name = input;
         Console.WriteLine("First Dns : ");
         TextWhite();
         input = Console.ReadLine();
         TextGreen();
-        await BackButton(input);
+         BackButton(input);
         command.DnsAddresses = input + ",";
         Console.WriteLine("Second Dns : ");
         TextWhite();
         input = Console.ReadLine();
         TextGreen();
-        await BackButton(input);
+         BackButton(input);
         command.DnsAddresses += input;
-        await CreateThisDns(command);
+        CreateThisDns(command);
     }
 
-    private async Task CreateDns(string newdnsAddress)
+    private async void CreateDns(string newdnsAddress)
     {
         Console.Clear();
         Console.WriteLine("- Create New DNS -");
@@ -201,25 +201,25 @@ public class ConsoleApp
         TextWhite();
         input = Console.ReadLine();
         TextGreen();
-        await BackButton(input);
+         BackButton(input);
         command.Name = input;
         command.DnsAddresses = newdnsAddress;
         OperationResult operationResult = await _dnsObjApplication.Create(command);
-        await CreateThisDns(command);
+        CreateThisDns(command); 
     }
 
-    private async Task ModifyDns()
+    private async void ModifyDns()
     {
         Console.Clear();
         Console.WriteLine("- Modify Page -");
         Console.WriteLine(ConsoleHelper.BackButton);
 
-        await LoopDns(ConsoleColor.Cyan);
+        LoopDns(ConsoleColor.Cyan);
         Console.ForegroundColor = ConsoleColor.White;
         while (true)
         {
             var pressedKey = Console.ReadLine();
-            await BackButton(pressedKey);
+             BackButton(pressedKey);
             int row;
             var id = WhichRecordPressed(pressedKey);
             if (id != -1)
@@ -285,25 +285,25 @@ public class ConsoleApp
         }
     }
 
-    private async Task DeleteDns()
+    private void DeleteDns()
     {
         Console.Clear();
         Console.WriteLine("- Delete Page -");
         Console.WriteLine(ConsoleHelper.BackButton);
 
-        await LoopDns(ConsoleColor.Yellow);
+        LoopDns(ConsoleColor.Yellow);
         Console.ForegroundColor = ConsoleColor.White;
         while (true)
         {
             var pressedKey = Console.ReadLine();
-            await BackButton(pressedKey);
+            BackButton(pressedKey);
             int row;
             var id = WhichRecordPressed(pressedKey);
             if (id != -1)
             {
                 Console.WriteLine(ConsoleHelper.DashLine);
-                if (ConsoleHelper.CheckConsentFor("Delete", id)) await _dnsObjApplication.Delete(id);
-                await DeleteDns();
+                if (ConsoleHelper.CheckConsentFor("Delete", id)) _dnsObjApplication.Delete(id);
+                DeleteDns();
             }
         }
     }

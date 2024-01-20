@@ -2,24 +2,30 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <ApplicationIcon>icons8-dns-96.ico</ApplicationIcon>
+        <PublishAot>False</PublishAot>
+		<TrimMode>partial</TrimMode>
+        <Trimming>partial</Trimming>
+        <SignAssembly>False</SignAssembly>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.16">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1"/>
-        <PackageReference Include="System.Management" Version="6.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+        <PackageReference Include="System.Management" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\DnsSwitcher\DC.Application.Contracts\DC.Application.Contracts.csproj"/>
-        <ProjectReference Include="..\DnsSwitcher\DC.Application\DC.Application.csproj"/>
-        <ProjectReference Include="..\DnsSwitcher\DC.Infrastructure.SQlite\DC.Infrastructure.SQlite.csproj"/>
+        <ProjectReference Include="..\DnsSwitcher\DC.Application.Contracts\DC.Application.Contracts.csproj" />
+        <ProjectReference Include="..\DnsSwitcher\DC.Application\DC.Application.csproj" />
+        <ProjectReference Include="..\DnsSwitcher\DC.Infrastructure.SQlitePCL\DC.Infrastructure.SQlitePCL.csproj" />
+<!--        <ProjectReference Include="..\DnsSwitcher\DC.Infrastructure.SQlite\DC.Infrastructure.SQlite.csproj"/>-->
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using System.Management;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Management;
 using System.Net.NetworkInformation;
 
 namespace DC.Application.NetworkInterfaceHelper;
@@ -8,6 +9,7 @@ public class NetworkInterfaceClass
     public ManagementBaseObject ManagementBaseObject { get; init; }
     public ManagementObject InstanceManagementObject { get; init; }
     public NetworkInterface NetworkInterfaceObject { get; init; }
+    [RequiresUnreferencedCode("Get ManagementObjects")]
     public NetworkInterfaceClass()
     {
         //Get Active Network Interface
@@ -31,7 +33,7 @@ public class NetworkInterfaceClass
                 }
             }
     }
-    
+    [RequiresUnreferencedCode("using ManagementObjects")]
     public void SetDns(string DnsAddresses)
     {
         var DnsArr = DnsAddresses.Split(',');
@@ -39,14 +41,14 @@ public class NetworkInterfaceClass
         InstanceManagementObject
             .InvokeMethod("SetDNSServerSearchOrder", ManagementBaseObject, null);
     }
-
+    [RequiresUnreferencedCode("using ManagementObjects")]
     public void UnSetDns()
     {
         ManagementBaseObject["DNSServerSearchOrder"] = null;
         InstanceManagementObject
             .InvokeMethod("SetDNSServerSearchOrder", ManagementBaseObject, null);
     }
-
+    [RequiresUnreferencedCode("using ManagementObjects")]
     public string GetDns()
     {
         var ipProperties = NetworkInterfaceObject.GetIPProperties();
@@ -59,10 +61,5 @@ public class NetworkInterfaceClass
                 dns += ",";
         }
         return dns;
-    }
-
-    public string GetCurrentDns()
-    {
-        return GetDns();
     }
 }
