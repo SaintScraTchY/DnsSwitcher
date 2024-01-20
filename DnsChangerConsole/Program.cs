@@ -14,11 +14,11 @@ namespace DnsChangerConsole;
 internal static class Program
 {
     private const string DbName = "DnsDB.db";
-    private static IServiceProvider ServiceProvider { get; set; }
-    [RequiresUnreferencedCode("using main")]
+
     public static async Task Main(string[] args)
     {
         string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DbName);
+        IServiceProvider ServiceProvider;
         var host = await BuildHost();
         ServiceProvider = host.Services;
         Console.WriteLine("Getting Things Ready...");
@@ -35,7 +35,7 @@ internal static class Program
         consoleapp.GoHome();
         Console.ReadLine();
     }
-    [RequiresUnreferencedCode("using injection")]
+
     private static async Task<IHost> BuildHost()
     {
         var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
@@ -48,7 +48,7 @@ internal static class Program
 
             //services.AddDbContext<DnsContext>(options => options.UseSqlite(@$"Data Source={DbName}"));
             
-        }).ConfigureLogging(Logger => Logger.ClearProviders()).Build();
+        }).Build();
         return host;
     }
 }

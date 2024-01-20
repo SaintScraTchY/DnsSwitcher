@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "soZwRGnVkJsfuWXt5C2qOsm+sEjoSvuGC5bLC23y2BK+AF0qePgEeS6V7GL4Yj8eZ/VpoVJNH3zuzsjM6IYZXw==",
+  "dgSpecHash": "P59TVzkSCaXfDC1Ri1PQkMQMqq3Q1Qztk62m0LiSZC8UEWJZ1/czH+YGXOwI98bXOoVjisUxjHf3nWwQ0AIe5w==",
   "success": true,
   "projectFilePath": "D:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsSwitcher\\DC.Domain\\DC.Domain.csproj",
   "expectedPackageFiles": [
@@ -12,11 +12,7 @@
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\sqlitepclraw.provider.e_sqlite3\\2.1.2\\sqlitepclraw.provider.e_sqlite3.2.1.2.nupkg.sha512",
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\system.codedom\\8.0.0\\system.codedom.8.0.0.nupkg.sha512",
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\system.management\\8.0.0\\system.management.8.0.0.nupkg.sha512",
-    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
-    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.1\\microsoft.netcore.app.runtime.win-x64.8.0.1.nupkg.sha512",
-    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\8.0.1\\microsoft.windowsdesktop.app.runtime.win-x64.8.0.1.nupkg.sha512",
-    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\8.0.1\\microsoft.aspnetcore.app.runtime.win-x64.8.0.1.nupkg.sha512",
-    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\8.0.1\\microsoft.netcore.app.crossgen2.win-x64.8.0.1.nupkg.sha512"
+    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
   ],
   "logs": []
 }

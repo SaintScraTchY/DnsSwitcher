@@ -1,10 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Management;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace DC.Application.NetworkInterfaceHelper;
-
-public class NetworkInterfaceClass
+//[GeneratedComClass]
+public partial class NetworkInterfaceClass
 {
     public ManagementBaseObject ManagementBaseObject { get; init; }
     public ManagementObject InstanceManagementObject { get; init; }

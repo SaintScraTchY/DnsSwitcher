@@ -7,9 +7,8 @@
         <Nullable>enable</Nullable>
         <ApplicationIcon>icons8-dns-96.ico</ApplicationIcon>
         <PublishAot>False</PublishAot>
-		<TrimMode>partial</TrimMode>
-        <Trimming>partial</Trimming>
         <SignAssembly>False</SignAssembly>
+        <Trimming>full</Trimming>
     </PropertyGroup>
 
     <ItemGroup>

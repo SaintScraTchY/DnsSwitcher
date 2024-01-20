@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "+GObQeQg3ZkYOX62Xda1EGT3ccPtll4YhCjBnBf7xY33EYJ6/qCv7qOh0TX+aniLbJJyYW3WXPmS6/Hz5+6bKg==",
+  "dgSpecHash": "LwHYn9oWbL43AjAVt6XKug5jBCyo0Oa/uQWdQRVmchJFlSTvULhoEdzo9se19zQV2ujmUsPeSJZ/3VTefodgzQ==",
   "success": true,
   "projectFilePath": "D:\\Dev\\Projects\\CSharp\\DotNetCore\\DnsChanger\\DnsChangerConsole\\DnsChangerConsole.csproj",
   "expectedPackageFiles": [
@@ -46,6 +46,7 @@
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\8.0.0\\microsoft.extensions.options.configurationextensions.8.0.0.nupkg.sha512",
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.1\\microsoft.net.illink.tasks.8.0.1.nupkg.sha512",
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\sqlite-net-pcl\\1.9.141-beta\\sqlite-net-pcl.1.9.141-beta.nupkg.sha512",
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\sqlitepclraw.bundle_green\\2.1.2\\sqlitepclraw.bundle_green.2.1.2.nupkg.sha512",
