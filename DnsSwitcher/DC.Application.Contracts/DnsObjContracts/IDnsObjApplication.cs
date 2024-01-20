@@ -4,12 +4,12 @@ namespace DC.Application.Contracts.DnsObjContracts;
 
 public interface IDnsObjApplication
 {
-    OperationResult Create(CreateDnsObj command);
-    OperationResult Delete(int id);
-    EditDnsObj GetDetail(int id);
-    OperationResult Edit(EditDnsObj command);
-    List<DnsObjViewModel> GetAll();
-    OperationResult SetDns(int id);
-    OperationResult UnSetDns();
-    DnsObjViewModel GetCurrentDns();
+    Task<OperationResult> Create(CreateDnsObj command);
+    Task<OperationResult> Delete(int id);
+    Task<EditDnsObj> GetDetail(int id);
+    Task<OperationResult> Edit(EditDnsObj command);
+    Task<List<DnsObjViewModel>> GetAll();
+    Task<OperationResult> SetDns(int id);
+    Task<OperationResult> UnSetDns();
+    Task<DnsObjViewModel> GetCurrentDns();
 }

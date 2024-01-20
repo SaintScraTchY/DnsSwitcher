@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 using DC.Application.Contracts.DnsObjContracts;
 using DC.Domain.DnsObj;
+using Microsoft.EntityFrameworkCore;
 
 namespace DC.Infrastructure.SQlite.Repositories;
 
@@ -13,58 +14,69 @@ public class DnsObjRepository : IDnsObjRepository
         _context = context;
     }
 
-    public void Save()
+    private async Task SaveAsync()
     {
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public void Create(DnsObj entity)
+    public async Task<bool> UpdateAsync(DnsObj entity)
     {
-        _context.Dnses.Add(entity);
+        var result = _context.Dnses.Update(entity);
+        await SaveAsync();
+        return result.State == EntityState.Modified;
     }
 
-    public List<DnsObjViewModel> GetAll()
+    public async Task<bool> CreateAsync(DnsObj entity)
     {
-        return _context.Dnses.Select(x => new DnsObjViewModel
+        var result = await _context.Dnses.AddAsync(entity);
+        await SaveAsync();
+        return result.State == EntityState.Added;
+    }
+
+    public async Task<List<DnsObjViewModel>> GetAllAsync()
+    {
+        return await _context.Dnses.Select(x => new DnsObjViewModel
         {
             Id = x.Id,
             Name = x.Name,
             DnsAddresses = x.DnsAddresses
-        }).ToList();
+        }).ToListAsync();
     }
 
-    public void Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        _context.Dnses.Remove(FindBy(id));
+         var result =_context.Dnses.Remove(await FindByAsync(id));
+         await SaveAsync();
+         return result.State == EntityState.Deleted;
     }
 
-    public DnsObj FindBy(int id)
+    public async Task<DnsObj> FindByAsync(int id)
     {
-        return _context.Dnses.FirstOrDefault(x => x.Id == id);
+        return await _context.Dnses.FirstOrDefaultAsync(x => x.Id == id) ?? new DnsObj();
     }
 
-    public DnsObjViewModel FindBy(string dns)
+    public async Task<DnsObjViewModel> FindByAsync(string dns)
     {
-        return _context.Dnses.Select(x => new DnsObjViewModel
+        return await _context.Dnses.Select(x => new DnsObjViewModel
         {
             Id = x.Id,
             Name = x.Name,
             DnsAddresses = x.DnsAddresses
-        }).FirstOrDefault(x => x.DnsAddresses == dns);
+        }).FirstOrDefaultAsync(x => x.DnsAddresses == dns) ?? new DnsObjViewModel();
     }
 
-    public EditDnsObj GetDetail(int id)
+    public async Task<EditDnsObj> GetDetailAsync(int id)
     {
-        return _context.Dnses.Select(x => new EditDnsObj
+        return await _context.Dnses.Select(x => new EditDnsObj
         {
             Id = x.Id,
             Name = x.Name,
             DnsAddresses = x.DnsAddresses
-        }).FirstOrDefault(x => x.Id == id);
+        }).FirstOrDefaultAsync(x => x.Id == id) ?? new EditDnsObj();
     }
 
-    public bool Exists(Expression<Func<DnsObj, bool>> expression)
+    public Task<bool> Exists(Expression<Func<DnsObj, bool>> expression)
     {
-        return _context.Dnses.Any(expression);
+        return _context.Dnses.AnyAsync(expression);
     }
 }

@@ -1,7 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using DC.Application;
+﻿using DC.Application;
 using DC.Application.Contracts.DnsObjContracts;
+using DC.Application.NetworkInterfaceHelper;
 using DC.Domain.DnsObj;
 using DC.Infrastructure.SQlite;
 using DC.Infrastructure.SQlite.Repositories;
@@ -12,10 +11,10 @@ using Microsoft.Extensions.Logging;
 
 namespace DnsChangerConsole;
 
-internal class Program
+internal static class Program
 {
     private const string DbName = "DnsDB.db";
-    public static IServiceProvider ServiceProvider { get; private set; }
+    private static IServiceProvider ServiceProvider { get; set; }
 
     public static async Task Main(string[] args)
     {
@@ -33,7 +32,7 @@ internal class Program
         if (File.Exists(DbName)) ServiceProvider.GetRequiredService<DnsContext>().Database.Migrate();
 
         var consoleapp = new ConsoleApp(ServiceProvider.GetRequiredService<IDnsObjApplication>());
-        consoleapp.GoHome();
+        await consoleapp.GoHome();
         Console.ReadLine();
     }
 
@@ -41,8 +40,9 @@ internal class Program
     {
         var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
         {
-            services.AddSingleton<IDnsObjApplication, DnsObjApplication>();
-            services.AddSingleton<IDnsObjRepository, DnsObjRepository>();
+            services.AddTransient<NetworkInterfaceClass>();
+            services.AddTransient<IDnsObjRepository, DnsObjRepository>();
+            services.AddTransient<IDnsObjApplication, DnsObjApplication>();
 
             services.AddDbContext<DnsContext>(options => options.UseSqlite(@$"Data Source={DbName}"));
         }).ConfigureLogging(Logger => Logger.ClearProviders()).Build();

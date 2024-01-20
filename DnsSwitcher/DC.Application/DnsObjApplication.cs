@@ -1,5 +1,7 @@
-﻿using _0_Framework.Application;
+﻿using System.Net.NetworkInformation;
+using _0_Framework.Application;
 using DC.Application.Contracts.DnsObjContracts;
+using DC.Application.NetworkInterfaceHelper;
 using DC.Domain.DnsObj;
 using HelperClass.Application;
 
@@ -8,91 +10,95 @@ namespace DC.Application;
 public class DnsObjApplication : IDnsObjApplication
 {
     private readonly IDnsObjRepository _dnsObjRepository;
+    private readonly NetworkInterfaceClass _networkInterface;
 
-    public DnsObjApplication(IDnsObjRepository dnsObjRepository)
+    public DnsObjApplication(IDnsObjRepository dnsObjRepository,NetworkInterfaceClass networkInterfaceClass)
     {
         _dnsObjRepository = dnsObjRepository;
+        _networkInterface = networkInterfaceClass;
     }
 
-    public OperationResult Create(CreateDnsObj command)
+    public async Task<OperationResult> Create(CreateDnsObj command)
     {
         OperationResult operationResult = new();
-        if (_dnsObjRepository.Exists(x => x.Name == command.Name || x.DnsAddresses == command.DnsAddresses))
+        if (await _dnsObjRepository.Exists(x => x.Name == command.Name || x.DnsAddresses == command.DnsAddresses))
             return operationResult.Failed(ApplicationMessages.DuplicatedRecord);
         var dnsObj = new DnsObj(command.DnsAddresses, command.Name);
-        _dnsObjRepository.Create(dnsObj);
-        _dnsObjRepository.Save();
+        await _dnsObjRepository.CreateAsync(dnsObj);
         return operationResult.Succeeded();
     }
 
-    public OperationResult Delete(int id)
+    public async Task<OperationResult> Delete(int id)
     {
         OperationResult operationResult = new();
-        if (!_dnsObjRepository.Exists(x => x.Id == id))
+        if (await _dnsObjRepository.Exists(x => x.Id != id))
             return operationResult.Failed(ApplicationMessages.RequestedRecordNotExists);
-        _dnsObjRepository.Delete(id);
-        _dnsObjRepository.Save();
+        await _dnsObjRepository.DeleteAsync(id);
         return operationResult.Succeeded();
     }
 
-    public EditDnsObj GetDetail(int id)
+    public async Task<EditDnsObj> GetDetail(int id)
     {
-        return _dnsObjRepository.GetDetail(id);
+        return await _dnsObjRepository.GetDetailAsync(id);
     }
 
-    public OperationResult Edit(EditDnsObj command)
+    public async Task<OperationResult> Edit(EditDnsObj command)
     {
         OperationResult operationResult = new();
-        if (_dnsObjRepository.Exists(x => x.Name == command.Name && x.Id != command.Id))
+        if (await _dnsObjRepository.Exists(x => x.Name == command.Name && x.Id != command.Id))
             return operationResult.Failed(ApplicationMessages.DuplicatedRecord);
-        var editDnsObj = _dnsObjRepository.FindBy(command.Id);
+        var editDnsObj = await _dnsObjRepository.FindByAsync(command.Id);
         editDnsObj.Edit(command.DnsAddresses, command.Name);
-        _dnsObjRepository.Save();
-        return operationResult.Succeeded();
+        if(await _dnsObjRepository.UpdateAsync(editDnsObj))
+            return operationResult.Succeeded();
+        //TODO
+        return operationResult.Failed(ApplicationMessages.RequestedRecordNotExists);
     }
 
-    public List<DnsObjViewModel> GetAll()
+    public async Task<List<DnsObjViewModel>> GetAll()
     {
-        return _dnsObjRepository.GetAll();
+        return await _dnsObjRepository.GetAllAsync();
     }
 
-    public OperationResult SetDns(int id)
+    public async Task<OperationResult> SetDns(int id)
     {
         OperationResult operationResult = new();
-        var dnsObj = _dnsObjRepository.FindBy(id);
-        dnsObj.SetDns();
+        var dnsObj = await _dnsObjRepository.FindByAsync(id);
+        //dnsObj.SetDns();
         return operationResult.Succeeded();
-        try
-        {
-        }
-        catch (Exception e)
-        {
-            return operationResult.Failed(ApplicationMessages.DnsChangeFailed);
-        }
+        // try
+        // {
+        // }
+        // catch (Exception e)
+        // {
+        //     return operationResult.Failed(ApplicationMessages.DnsChangeFailed);
+        // }
     }
 
-    public OperationResult UnSetDns()
+    public async Task<OperationResult> UnSetDns()
     {
         OperationResult operationResult = new();
         var dnsObj = new DnsObj();
-        dnsObj.UnSetDns();
+        //dnsObj.UnSetDns();
         return operationResult.Succeeded();
-        try
-        {
-        }
-        catch (Exception e)
-        {
-            return operationResult.Failed(ApplicationMessages.DnsUnSetFailed);
-        }
+        // try
+        // {
+        // }
+        // catch (Exception e)
+        // {
+        //     return operationResult.Failed(ApplicationMessages.DnsUnSetFailed);
+        // }
     }
 
-    public DnsObjViewModel GetCurrentDns()
+    public async Task<DnsObjViewModel> GetCurrentDns()
     {
         DnsObjViewModel dnsObjViewModel = new();
         DnsObj dnsObj = new();
-        dnsObjViewModel.DnsAddresses = dnsObj.GetCurrentDns();
-        if (_dnsObjRepository.Exists(x => x.DnsAddresses == dnsObjViewModel.DnsAddresses))
-            dnsObjViewModel = _dnsObjRepository.FindBy(dnsObjViewModel.DnsAddresses);
+        dnsObjViewModel.DnsAddresses = _networkInterface.GetDns();
+        if (await _dnsObjRepository.Exists(x => x.DnsAddresses == dnsObjViewModel.DnsAddresses))
+            dnsObjViewModel = await _dnsObjRepository.FindByAsync(dnsObjViewModel.DnsAddresses);
         return dnsObjViewModel;
     }
+    
+    
 }

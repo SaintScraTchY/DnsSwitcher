@@ -12,5 +12,7 @@ public class DnsObjMapping : IEntityTypeConfiguration<DnsObj>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name);
         builder.Property(x => x.DnsAddresses);
+        builder.Property(x => x.CreationDate);
+        builder.Property(x => x.ModifiedDate);
     }
 }
