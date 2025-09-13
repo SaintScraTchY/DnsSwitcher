@@ -2,13 +2,13 @@
 using DC.Core.Cotracts.DnsObjContracts;
 using DC.Core.Domain.DnsObj;
 
-namespace DC.Infrastructure.SQlitePCL.Repositories;
+namespace DC.Core.Infrastructure.SQLItePCL;
 
-public class DnsObjRepository : IDnsObjRepository
+public class DnsObjSQLitePclRepository : IDnsObjRepository
 {
     private readonly DnsContext _context;
 
-    public DnsObjRepository(DnsContext context)
+    public DnsObjSQLitePclRepository(DnsContext context)
     {
         _context = context;
         _context.InitAsync();

@@ -1,5 +1,5 @@
-﻿using DC.Application.Contracts.DnsObjContracts;
-using HelperClass.Application;
+﻿using DC.Core.Cotracts.DnsObjContracts;
+using DC.Core.Helper;
 
 namespace DnsChangerConsole;
 
@@ -55,7 +55,7 @@ public class ConsoleApp
     {
         Console.WriteLine(ConsoleHelper.DashLine);
         Console.ForegroundColor = color;
-        _objs = await _dnsObjApplication.GetAll();
+        _objs = await _dnsObjApplication.GetAllAsync();
         if (_objs.Count > 0)
         {
             var i = 1;
@@ -73,7 +73,7 @@ public class ConsoleApp
 
     private async void SetThisDns(int id)
     {
-        var operationResult = await _dnsObjApplication.SetDns(id);
+        var operationResult = await _dnsObjApplication.SetDnsAsync(id);
         if (!operationResult.IsSucceeded)
             Console.WriteLine(operationResult.Message);
         GoHome();
@@ -81,7 +81,7 @@ public class ConsoleApp
 
     private async Task UpdateCurrentDns()
     {
-        var currentDns = await _dnsObjApplication.GetCurrentDns();
+        var currentDns = await _dnsObjApplication.GetCurrentDnsAsync();
         _currentDns = ConsoleHelper.DisplayCurrentDns(currentDns);
     }
 
@@ -154,7 +154,7 @@ public class ConsoleApp
 
     private async void CreateThisDns(CreateDnsObj command)
     {
-        OperationResult operationResult = await _dnsObjApplication.Create(command);
+        var operationResult = await _dnsObjApplication.CreateAsync(command);
         GoHome();
         if(operationResult.IsSucceeded==false)
             Console.WriteLine(operationResult.Message);
@@ -204,7 +204,7 @@ public class ConsoleApp
          BackButton(input);
         command.Name = input;
         command.DnsAddresses = newdnsAddress;
-        OperationResult operationResult = await _dnsObjApplication.Create(command);
+        OperationResult operationResult = await _dnsObjApplication.CreateAsync(command);
         CreateThisDns(command); 
     }
 
@@ -225,7 +225,7 @@ public class ConsoleApp
             if (id != -1)
             {
                 string inputValue;
-                var editDnsObj = await _dnsObjApplication.GetDetail(id);
+                var editDnsObj = await _dnsObjApplication.GetDetailAsync(id);
                 while (true)
                 {
                     ConsoleHelper.ModifyTextFor("Title", editDnsObj.Name);
@@ -265,7 +265,7 @@ public class ConsoleApp
                 Console.WriteLine(ConsoleHelper.DashLine);
                 if (ConsoleHelper.CheckConsentFor("Modify", editDnsObj.Id))
                 {
-                    OperationResult operationResult = await _dnsObjApplication.Edit(editDnsObj);
+                    OperationResult operationResult = await _dnsObjApplication.EditAsync(editDnsObj);
                     if (operationResult.IsSucceeded == false)
                     {
                         ModifyDns();

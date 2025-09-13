@@ -1,7 +1,7 @@
 ﻿using DC.Core.Domain.DnsObj;
 using SQLite;
 
-namespace DC.Infrastructure.SQlitePCL;
+namespace DC.Core.Infrastructure.SQLItePCL;
 
 public class DnsContext 
 {

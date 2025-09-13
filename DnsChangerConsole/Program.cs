@@ -1,13 +1,11 @@
-﻿using DC.Application;
-using DC.Application.Contracts.DnsObjContracts;
-using DC.Application.NetworkInterfaceHelper;
-using DC.Domain.DnsObj;
-using DC.Infrastructure.SQlitePCL;
-using DC.Infrastructure.SQlitePCL.Repositories;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics.CodeAnalysis;
+using DC.Core.Application;
+using DC.Core.Application.NetworkInterfaceHelper;
+using DC.Core.Cotracts.DnsObjContracts;
+using DC.Core.Domain.DnsObj;
+using DC.Core.Infrastructure.EFCore.Repositories;
+using DC.Core.Infrastructure.SQLItePCL;
 
 namespace DnsChangerConsole;
 

@@ -1,4 +1,4 @@
-﻿using DC.Application.Contracts.DnsObjContracts;
+﻿using DC.Core.Cotracts.DnsObjContracts;
 
 namespace DnsChangerConsole;
 
