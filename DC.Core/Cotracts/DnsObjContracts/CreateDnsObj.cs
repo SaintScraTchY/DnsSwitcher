@@ -2,16 +2,18 @@
 
 public class CreateDnsObj
 {
-    public string DnsAddresses { get; set; }
+    public string FirstDns { get; set; }
+    public string SecondDns { get; set; }
     public string Name { get; set; }
 
     public CreateDnsObj()
     {
         
     }
-    public CreateDnsObj(string dnsAddresses, string name)
+    public CreateDnsObj(string firstDns,string secondDns, string name)
     {
-        DnsAddresses = dnsAddresses;
+        FirstDns = firstDns;
+        SecondDns = secondDns;
         Name = name;
     }
 }

@@ -1,4 +1,4 @@
-namespace DnsChangerTests;
+namespace DC.Tests;
 
 public class UnitTest1
 {

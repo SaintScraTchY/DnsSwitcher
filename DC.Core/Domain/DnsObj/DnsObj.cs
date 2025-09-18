@@ -7,26 +7,31 @@ public class DnsObj
 {
     [PrimaryKey,AutoIncrement]
     public int Id { get; set; }
-    public string DnsAddresses { get; set; }
+    public string FirstDns { get; set; }
+    public string SecondDns { get; set; }
     public string Name { get; set; }
     public DateTime CreationDate { get; set; }
     public DateTime ModifiedDate { get; set; }
 
     public DnsObj()
     {
+        
     }
 
-    public DnsObj(string dnsAddresses, string name)
+    public DnsObj(string firstDns,string secondDns, string name)
     {
-        DnsAddresses = dnsAddresses;
+        FirstDns = firstDns;
+        SecondDns = secondDns;
         Name = name;
+        FirstDns = firstDns;
         CreationDate = DateTime.Now;
         ModifiedDate = CreationDate;
     }
 
-    public void Edit(string dnsAddresses, string name)
+    public void Edit(string firstDns,string secondDns, string name)
     {
-        DnsAddresses = dnsAddresses;
+        FirstDns = firstDns;
+        SecondDns = secondDns;
         Name = name;
         ModifiedDate = DateTime.Now;
     }

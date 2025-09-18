@@ -1157,6 +1157,67 @@
           "buildTransitive/Mono.TextTemplating.targets": {}
         }
       },
+      "Spectre.Console/0.51.1": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/Spectre.Console.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Spectre.Console.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Spectre.Console.Cli/0.51.1": {
+        "type": "package",
+        "dependencies": {
+          "Spectre.Console": "0.51.1"
+        },
+        "compile": {
+          "lib/net9.0/Spectre.Console.Cli.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Spectre.Console.Cli.dll": {
+            "related": ".xml"
+          }
+        },
+        "resource": {
+          "lib/net9.0/de/Spectre.Console.Cli.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net9.0/es/Spectre.Console.Cli.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net9.0/fr/Spectre.Console.Cli.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net9.0/it/Spectre.Console.Cli.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net9.0/ja/Spectre.Console.Cli.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net9.0/ko/Spectre.Console.Cli.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net9.0/pt/Spectre.Console.Cli.resources.dll": {
+            "locale": "pt"
+          },
+          "lib/net9.0/ru/Spectre.Console.Cli.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net9.0/sv/Spectre.Console.Cli.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/net9.0/zh-Hans/Spectre.Console.Cli.resources.dll": {
+            "locale": "zh-Hans"
+          }
+        }
+      },
       "sqlite-net-pcl/1.9.141-beta": {
         "type": "package",
         "dependencies": {
@@ -3688,6 +3749,74 @@
         "readme.md"
       ]
     },
+    "Spectre.Console/0.51.1": {
+      "sha512": "84xNywgnaG8XgOypnZAL+EZUbhCGE0umj7fuMrSI6esdE74HYHRoeBioeMUJXPiCt7iBDKHLwiBcg0IliYIIxA==",
+      "type": "package",
+      "path": "spectre.console/0.51.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net8.0/Spectre.Console.dll",
+        "lib/net8.0/Spectre.Console.xml",
+        "lib/net9.0/Spectre.Console.dll",
+        "lib/net9.0/Spectre.Console.xml",
+        "lib/netstandard2.0/Spectre.Console.dll",
+        "lib/netstandard2.0/Spectre.Console.xml",
+        "logo.png",
+        "spectre.console.0.51.1.nupkg.sha512",
+        "spectre.console.nuspec"
+      ]
+    },
+    "Spectre.Console.Cli/0.51.1": {
+      "sha512": "LqJjjug5f8ipFFzhwBaQHMXt8+uuJAxu3dsyAxF+Jyva9yHW0P3iP6s1NpwVqt0Yk11n6/f9qipyiEn0zBKBiQ==",
+      "type": "package",
+      "path": "spectre.console.cli/0.51.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net8.0/Spectre.Console.Cli.dll",
+        "lib/net8.0/Spectre.Console.Cli.xml",
+        "lib/net8.0/de/Spectre.Console.Cli.resources.dll",
+        "lib/net8.0/es/Spectre.Console.Cli.resources.dll",
+        "lib/net8.0/fr/Spectre.Console.Cli.resources.dll",
+        "lib/net8.0/it/Spectre.Console.Cli.resources.dll",
+        "lib/net8.0/ja/Spectre.Console.Cli.resources.dll",
+        "lib/net8.0/ko/Spectre.Console.Cli.resources.dll",
+        "lib/net8.0/pt/Spectre.Console.Cli.resources.dll",
+        "lib/net8.0/ru/Spectre.Console.Cli.resources.dll",
+        "lib/net8.0/sv/Spectre.Console.Cli.resources.dll",
+        "lib/net8.0/zh-Hans/Spectre.Console.Cli.resources.dll",
+        "lib/net9.0/Spectre.Console.Cli.dll",
+        "lib/net9.0/Spectre.Console.Cli.xml",
+        "lib/net9.0/de/Spectre.Console.Cli.resources.dll",
+        "lib/net9.0/es/Spectre.Console.Cli.resources.dll",
+        "lib/net9.0/fr/Spectre.Console.Cli.resources.dll",
+        "lib/net9.0/it/Spectre.Console.Cli.resources.dll",
+        "lib/net9.0/ja/Spectre.Console.Cli.resources.dll",
+        "lib/net9.0/ko/Spectre.Console.Cli.resources.dll",
+        "lib/net9.0/pt/Spectre.Console.Cli.resources.dll",
+        "lib/net9.0/ru/Spectre.Console.Cli.resources.dll",
+        "lib/net9.0/sv/Spectre.Console.Cli.resources.dll",
+        "lib/net9.0/zh-Hans/Spectre.Console.Cli.resources.dll",
+        "lib/netstandard2.0/Spectre.Console.Cli.dll",
+        "lib/netstandard2.0/Spectre.Console.Cli.xml",
+        "lib/netstandard2.0/de/Spectre.Console.Cli.resources.dll",
+        "lib/netstandard2.0/es/Spectre.Console.Cli.resources.dll",
+        "lib/netstandard2.0/fr/Spectre.Console.Cli.resources.dll",
+        "lib/netstandard2.0/it/Spectre.Console.Cli.resources.dll",
+        "lib/netstandard2.0/ja/Spectre.Console.Cli.resources.dll",
+        "lib/netstandard2.0/ko/Spectre.Console.Cli.resources.dll",
+        "lib/netstandard2.0/pt/Spectre.Console.Cli.resources.dll",
+        "lib/netstandard2.0/ru/Spectre.Console.Cli.resources.dll",
+        "lib/netstandard2.0/sv/Spectre.Console.Cli.resources.dll",
+        "lib/netstandard2.0/zh-Hans/Spectre.Console.Cli.resources.dll",
+        "logo.png",
+        "spectre.console.cli.0.51.1.nupkg.sha512",
+        "spectre.console.cli.nuspec"
+      ]
+    },
     "sqlite-net-pcl/1.9.141-beta": {
       "sha512": "Gskp3AN9dZ3vrWrDNVm1C9cKMnLLfLWJbnEZ783Mg7zdet9ri3AuI8Fr7LuS157sW91ombyQTij/I12rn7gx0w==",
       "type": "package",
@@ -4303,6 +4432,8 @@
       "DC.Core >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.9",
       "Microsoft.Extensions.Hosting >= 9.0.9",
+      "Spectre.Console >= 0.51.1",
+      "Spectre.Console.Cli >= 0.51.1",
       "System.Management >= 9.0.9"
     ]
   },
@@ -4362,6 +4493,14 @@
           "Microsoft.Extensions.Hosting": {
             "target": "Package",
             "version": "[9.0.9, )"
+          },
+          "Spectre.Console": {
+            "target": "Package",
+            "version": "[0.51.1, )"
+          },
+          "Spectre.Console.Cli": {
+            "target": "Package",
+            "version": "[0.51.1, )"
           },
           "System.Management": {
             "target": "Package",

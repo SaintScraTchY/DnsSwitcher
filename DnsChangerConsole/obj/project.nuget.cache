@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ThHr6AbnGhw=",
+  "dgSpecHash": "Us8Rdn4KC/M=",
   "success": true,
   "projectFilePath": "M:\\Users\\SaintScraTchY\\RiderProjects\\DnsSwitcher\\DnsChangerConsole\\DnsChangerConsole.csproj",
   "expectedPackageFiles": [
@@ -53,6 +53,8 @@
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\9.0.9\\microsoft.extensions.options.configurationextensions.9.0.9.nupkg.sha512",
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.9\\microsoft.extensions.primitives.9.0.9.nupkg.sha512",
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
+    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\spectre.console\\0.51.1\\spectre.console.0.51.1.nupkg.sha512",
+    "C:\\Users\\SaintScraTchY\\.nuget\\packages\\spectre.console.cli\\0.51.1\\spectre.console.cli.0.51.1.nupkg.sha512",
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\sqlite-net-pcl\\1.9.141-beta\\sqlite-net-pcl.1.9.141-beta.nupkg.sha512",
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.10\\sqlitepclraw.bundle_e_sqlite3.2.1.10.nupkg.sha512",
     "C:\\Users\\SaintScraTchY\\.nuget\\packages\\sqlitepclraw.bundle_green\\2.1.2\\sqlitepclraw.bundle_green.2.1.2.nupkg.sha512",

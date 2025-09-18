@@ -149,6 +149,14 @@
               "target": "Package",
               "version": "[9.0.9, )"
             },
+            "Spectre.Console": {
+              "target": "Package",
+              "version": "[0.51.1, )"
+            },
+            "Spectre.Console.Cli": {
+              "target": "Package",
+              "version": "[0.51.1, )"
+            },
             "System.Management": {
               "target": "Package",
               "version": "[9.0.9, )"

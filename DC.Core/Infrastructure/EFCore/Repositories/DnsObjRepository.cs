@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using DC.Core.Cotracts;
 using DC.Core.Cotracts.DnsObjContracts;
 using DC.Core.Domain.DnsObj;
 using Microsoft.EntityFrameworkCore;
@@ -35,12 +36,7 @@ public class DnsObjRepository : IDnsObjRepository
 
     public async Task<List<DnsObjViewModel>> GetAllAsync()
     {
-        return await _context.Dnses.Select(x => new DnsObjViewModel
-        {
-            Id = x.Id,
-            Name = x.Name,
-            DnsAddresses = x.DnsAddresses
-        }).ToListAsync();
+        return await _context.Dnses.Select(x => x.MapDnsObjViewModel()).ToListAsync();
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -57,26 +53,76 @@ public class DnsObjRepository : IDnsObjRepository
 
     public async Task<DnsObjViewModel> FindByAsync(string dns)
     {
-        return await _context.Dnses.Select(x => new DnsObjViewModel
-        {
-            Id = x.Id,
-            Name = x.Name,
-            DnsAddresses = x.DnsAddresses
-        }).FirstOrDefaultAsync(x => x.DnsAddresses == dns) ?? new DnsObjViewModel();
+        return await _context.Dnses.Select(x => x.MapDnsObjViewModel()).FirstOrDefaultAsync(x => x.DnsAddresses == dns) ?? new DnsObjViewModel();
     }
 
     public async Task<EditDnsObj> GetDetailAsync(int id)
     {
-        return await _context.Dnses.Select(x => new EditDnsObj
-        {
-            Id = x.Id,
-            Name = x.Name,
-            DnsAddresses = x.DnsAddresses
-        }).FirstOrDefaultAsync(x => x.Id == id) ?? new EditDnsObj();
+        return await _context.Dnses.Select(x => x.MapEditDnsObj()).FirstOrDefaultAsync(x => x.Id == id) ?? new EditDnsObj();
     }
 
-    public Task<bool> Exists(Expression<Func<DnsObj, bool>> expression)
+    public Task<bool> ExistsAsync(Expression<Func<DnsObj, bool>> expression)
     {
         return _context.Dnses.AnyAsync(expression);
+    }
+
+    public Task<DnsObjViewModel> FindByAsync(Expression<Func<DnsObj, bool>> expression)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> IsDuplicateDnsAsync(string name, string firstDns, string secondDns)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Create(DnsObj entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Update(DnsObj entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<DnsObjViewModel> GetAll()
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public DnsObj FindBy(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public DnsObjViewModel FindBy(string dns)
+    {
+        throw new NotImplementedException();
+    }
+
+    public EditDnsObj GetDetail(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Exists(Expression<Func<DnsObj, bool>> expression)
+    {
+        throw new NotImplementedException();
+    }
+
+    public DnsObjViewModel FindBy(Expression<Func<DnsObj, bool>> expression)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool IsDuplicateDns(string name, string firstDns, string secondDns)
+    {
+        throw new NotImplementedException();
     }
 }

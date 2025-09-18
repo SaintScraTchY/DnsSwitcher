@@ -1,310 +1,86 @@
 ﻿using DC.Core.Cotracts.DnsObjContracts;
-using DC.Core.Helper;
+using Microsoft.Extensions.Hosting;
+using Spectre.Console;
 
 namespace DnsChangerConsole;
 
 public class ConsoleApp
 {
-    private readonly IDnsObjApplication _dnsObjApplication;
-    private List<DnsObjViewModel>? _objs;
-    private string _currentDns;
+    private readonly IDnsObjApplication _dnsApp;
+    private readonly CancellationToken _ct;
 
-    public ConsoleApp(IDnsObjApplication dnsObjApplication)
+    public ConsoleApp(IDnsObjApplication dnsApp, IHostApplicationLifetime lifetime)
     {
-        _dnsObjApplication = dnsObjApplication;
+        _dnsApp = dnsApp;
+        _ct = lifetime.ApplicationStopping;
+        // start automatically
+        Task.Run(() => RunAsync(_ct));
     }
 
-    private void TextWhite()
+    public void RunAsync(CancellationToken ct)
     {
-        Console.ForegroundColor = ConsoleColor.White;
-    }
-    
-    private void TextGreen()
-    {
-        Console.ForegroundColor = ConsoleColor.Green;
-    }
-
-    private void StartApp()
-    {
-        Console.WriteLine(ConsoleHelper.DashLine);
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine("[C]reate");
-        Console.WriteLine("[U]nset Dns");
-        Console.WriteLine("[M]odify");
-        Console.WriteLine("[D]elete");
-        Console.WriteLine("[E]xit");
-    }
-
-    public void GoHome()
-    {
-        Console.Clear();
-        Dash();
-        UpdateCurrentDns().Wait(timeout: TimeSpan.FromSeconds(5));
-        StartApp();
-        MainPage();
-    }
-
-    private void Dash()
-    {
-        Console.ForegroundColor = ConsoleColor.DarkGreen;
-        Console.WriteLine(ConsoleHelper.DashLine);
-        Console.ForegroundColor = ConsoleColor.White;
-    }
-
-    private async void LoopDns(ConsoleColor color)
-    {
-        Console.WriteLine(ConsoleHelper.DashLine);
-        Console.ForegroundColor = color;
-        _objs = await _dnsObjApplication.GetAllAsync();
-        if (_objs.Count > 0)
+        while (!ct.IsCancellationRequested)
         {
-            var i = 1;
-            foreach (var obj in _objs)
+            var objs = _dnsApp.GetAll() ?? new List<DnsObjViewModel>();
+            var currentDns = _dnsApp.GetCurrentDns();
+
+            AnsiConsole.MarkupLine($"[green]Current DNS:[/] {currentDns.DnsAddresses ?? "(none)"}");
+            AnsiConsole.WriteLine();
+
+            if (objs.Count == 0)
             {
-                Console.WriteLine($"[{i}] - {obj.Name}", obj.Id);
-                i++;
+                AnsiConsole.MarkupLine("[yellow]No DNS records found.[/]");
             }
-        }
-        else
-        {
-            Console.WriteLine(ConsoleHelper.NoRecordsFound);
-        }
-    }
-
-    private async void SetThisDns(int id)
-    {
-        var operationResult = await _dnsObjApplication.SetDnsAsync(id);
-        if (!operationResult.IsSucceeded)
-            Console.WriteLine(operationResult.Message);
-        GoHome();
-    }
-
-    private async Task UpdateCurrentDns()
-    {
-        var currentDns = await _dnsObjApplication.GetCurrentDnsAsync();
-        _currentDns = ConsoleHelper.DisplayCurrentDns(currentDns);
-    }
-
-    private void UnsetDns()
-    {
-        _dnsObjApplication.UnSetDns();
-        GoHome();
-    }
-
-    private bool ValidateDnsIndex(int id)
-    {
-        if (id <= _objs.Count)
-            return true;
-        return false;
-    }
-
-    private int WhichRecordPressed(string pressedKey)
-    {
-        int row;
-        int.TryParse(pressedKey, out row);
-        if (ValidateDnsIndex(row) && row > 0)
-            if (!pressedKey.StartsWith("0"))
-                return _objs[row - 1].Id;
-
-        return -1;
-    }
-
-    private void MainPage()
-    {
-        LoopDns(ConsoleColor.Green);
-        while (true)
-        {
-            var pressedKey = Console.ReadLine();
-            var Id = WhichRecordPressed(pressedKey);
-            if (Id != -1)
-                SetThisDns(Id);
             else
-                switch (pressedKey)
-                {
-                    case "C" or "c":
-                        CreateDns();
-                        break;
-                    case "U" or "u":
-                        UnsetDns();
-                        break;
-                    case "M" or "m":
-                        ModifyDns();
-                        break;
-                    case "D" or "d":
-                        DeleteDns();
-                        break;
-                    case "N" or "n":
-                        CreateDns(_currentDns);
-                        break;
-                    case "E" or "e":
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        Console.WriteLine(ConsoleHelper.InvalidInput);
-                        break;
-                }
-        }
-    }
-
-    private void BackButton(string pressedKey)
-    {
-        if (pressedKey == "B" || pressedKey == "b")
-            GoHome();
-    }
-
-    private async void CreateThisDns(CreateDnsObj command)
-    {
-        var operationResult = await _dnsObjApplication.CreateAsync(command);
-        GoHome();
-        if(operationResult.IsSucceeded==false)
-            Console.WriteLine(operationResult.Message);
-    }
-
-    private void CreateDns()
-    {
-        Console.Clear();
-        Console.WriteLine("- Create New DNS -");
-        Console.WriteLine(ConsoleHelper.BackButton);
-        Console.WriteLine(ConsoleHelper.DashLine);
-        var command = new CreateDnsObj();
-        string input;
-        Console.WriteLine("Dns Title : ");
-        TextWhite();
-        input = Console.ReadLine();
-        TextGreen();
-         BackButton(input);
-        command.Name = input;
-        Console.WriteLine("First Dns : ");
-        TextWhite();
-        input = Console.ReadLine();
-        TextGreen();
-         BackButton(input);
-        command.DnsAddresses = input + ",";
-        Console.WriteLine("Second Dns : ");
-        TextWhite();
-        input = Console.ReadLine();
-        TextGreen();
-         BackButton(input);
-        command.DnsAddresses += input;
-        CreateThisDns(command);
-    }
-
-    private async void CreateDns(string newdnsAddress)
-    {
-        Console.Clear();
-        Console.WriteLine("- Create New DNS -");
-        Console.WriteLine(ConsoleHelper.BackButton);
-        Console.WriteLine(ConsoleHelper.DashLine);
-        var command = new CreateDnsObj();
-        string input;
-        Console.WriteLine("Dns Title : ");
-        TextWhite();
-        input = Console.ReadLine();
-        TextGreen();
-         BackButton(input);
-        command.Name = input;
-        command.DnsAddresses = newdnsAddress;
-        OperationResult operationResult = await _dnsObjApplication.CreateAsync(command);
-        CreateThisDns(command); 
-    }
-
-    private async void ModifyDns()
-    {
-        Console.Clear();
-        Console.WriteLine("- Modify Page -");
-        Console.WriteLine(ConsoleHelper.BackButton);
-
-        LoopDns(ConsoleColor.Cyan);
-        Console.ForegroundColor = ConsoleColor.White;
-        while (true)
-        {
-            var pressedKey = Console.ReadLine();
-             BackButton(pressedKey);
-            int row;
-            var id = WhichRecordPressed(pressedKey);
-            if (id != -1)
             {
-                string inputValue;
-                var editDnsObj = await _dnsObjApplication.GetDetailAsync(id);
-                while (true)
-                {
-                    ConsoleHelper.ModifyTextFor("Title", editDnsObj.Name);
-                    TextWhite();
-                    inputValue = Console.ReadLine();
-                    TextGreen();
-                    if (string.IsNullOrWhiteSpace(inputValue))
-                    {
-                        ConsoleHelper.DisplayErrorFor(ConsoleHelper.NullInput, "Title");
-                    }
-                    else
-                    {
-                        editDnsObj.Name = inputValue;
-                        break;
-                    }
-                }
+                var prompt = new SelectionPrompt<string>()
+                    .Title("Select DNS to apply (or type command):")
+                    .PageSize(10)
+                    .MoreChoicesText("[grey](Move up and down to reveal more)[/]")
+                    .AddChoices(objs.Select(o => $"{o.Id}: {o.Name}"));
 
-                var dnsTemp = editDnsObj.DnsAddresses.Split(',');
-                ConsoleHelper.ModifyTextFor("First DNS", dnsTemp[0]);
-                TextWhite();
-                inputValue = Console.ReadLine();
-                TextGreen();
-                if (string.IsNullOrWhiteSpace(inputValue))
-                    editDnsObj.DnsAddresses = dnsTemp[0] + ",";
-                else
-                    editDnsObj.DnsAddresses = inputValue + ",";
+                var choice = AnsiConsole.Prompt(prompt);
 
-                ConsoleHelper.ModifyTextFor("Second DNS", dnsTemp[0]);
-                TextWhite();
-                inputValue = Console.ReadLine();
-                TextGreen();
-                if (string.IsNullOrWhiteSpace(inputValue))
-                    editDnsObj.DnsAddresses += dnsTemp[1];
-                else
-                    editDnsObj.DnsAddresses += inputValue;
+                // parse id
+                var idStr = choice.Split(':')[0];
+                if (int.TryParse(idStr, out var id))
+                {
+                    var result = _dnsApp.SetDns(id);
+                    if (!result.IsSucceeded)
+                        AnsiConsole.MarkupLine($"[red]{result.Message}[/]");
+                }
+            }
 
-                Console.WriteLine(ConsoleHelper.DashLine);
-                if (ConsoleHelper.CheckConsentFor("Modify", editDnsObj.Id))
-                {
-                    OperationResult operationResult = await _dnsObjApplication.EditAsync(editDnsObj);
-                    if (operationResult.IsSucceeded == false)
-                    {
-                        ModifyDns();
-                        Console.WriteLine(operationResult.Message);
-                    }
-                    else
-                    {
-                        ModifyDns();
-                    }
-                        
-                }
-                else
-                {
-                    ModifyDns();
-                }
+            AnsiConsole.WriteLine();
+            var cmd = AnsiConsole.Prompt(new TextPrompt<string>("Type [grey](C)reate/(U)nset/(M)odify/(D)elete/(E)xit[/]"));
+            switch (cmd?.ToLowerInvariant())
+            {
+                case "c":
+                case "create":
+                    CreateFlowAsync();
+                    break;
+                case "u":
+                case "unset":
+                    _dnsApp.UnSetDns();
+                    break;
+                case "e":
+                case "exit":
+                    return; // exit loop -> host will stop
+                // handle other commands similarly...
+                default:
+                    AnsiConsole.MarkupLine("[red]Invalid command[/]");
+                    break;
             }
         }
     }
 
-    private void DeleteDns()
+    private void CreateFlowAsync()
     {
-        Console.Clear();
-        Console.WriteLine("- Delete Page -");
-        Console.WriteLine(ConsoleHelper.BackButton);
-
-        LoopDns(ConsoleColor.Yellow);
-        Console.ForegroundColor = ConsoleColor.White;
-        while (true)
-        {
-            var pressedKey = Console.ReadLine();
-            BackButton(pressedKey);
-            int row;
-            var id = WhichRecordPressed(pressedKey);
-            if (id != -1)
-            {
-                Console.WriteLine(ConsoleHelper.DashLine);
-                if (ConsoleHelper.CheckConsentFor("Delete", id)) _dnsObjApplication.Delete(id);
-                DeleteDns();
-            }
-        }
+        var title = AnsiConsole.Ask<string>("Dns Title:");
+        var first = AnsiConsole.Ask<string>("First DNS:");
+        var second = AnsiConsole.Ask<string>("Second DNS:");
+        var cmd = new CreateDnsObj(first, second, title);
+        var r =  _dnsApp.Create(cmd);
+        if (!r.IsSucceeded) AnsiConsole.MarkupLine($"[red]{r.Message}[/]");
     }
 }

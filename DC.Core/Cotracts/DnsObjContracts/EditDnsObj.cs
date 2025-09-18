@@ -8,7 +8,7 @@ public class EditDnsObj : CreateDnsObj
     {
         
     }
-    public EditDnsObj(string dnsAddresses, string name, int id) : base(dnsAddresses, name)
+    public EditDnsObj(string firstDns,string secondDns, string name, int id) : base(firstDns,secondDns, name)
     {
         Id = id;
     }

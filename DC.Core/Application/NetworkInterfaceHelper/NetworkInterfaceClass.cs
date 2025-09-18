@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Management;
 using System.Net.NetworkInformation;
+using DC.Core.Cotracts.DnsObjContracts;
 
 namespace DC.Core.Application.NetworkInterfaceHelper;
 //[GeneratedComClass]
@@ -34,10 +35,9 @@ public partial class NetworkInterfaceClass
             }
     }
     [RequiresUnreferencedCode("using ManagementObjects")]
-    public void SetDns(string DnsAddresses)
+    public void SetDns(string firstDns,string secondDns)
     {
-        var DnsArr = DnsAddresses.Split(',');
-        ManagementBaseObject["DNSServerSearchOrder"] = DnsArr;
+        ManagementBaseObject["DNSServerSearchOrder"] = new string[] { firstDns, secondDns };
         InstanceManagementObject
             .InvokeMethod("SetDNSServerSearchOrder", ManagementBaseObject, null);
     }
@@ -49,17 +49,15 @@ public partial class NetworkInterfaceClass
             .InvokeMethod("SetDNSServerSearchOrder", ManagementBaseObject, null);
     }
     [RequiresUnreferencedCode("using ManagementObjects")]
-    public string GetDns()
+    public (string FirstDns,string SecondDns) GetDns()
     {
         var ipProperties = NetworkInterfaceObject.GetIPProperties();
         var dnsCollection = ipProperties.DnsAddresses;
-        var dns = "";
-        foreach (var dnsAddress in dnsCollection)
+        return dnsCollection.Count switch
         {
-            dns += dnsAddress;
-            if (dnsCollection.First() == dnsAddress)
-                dns += ",";
-        }
-        return dns;
+            0 => (string.Empty, string.Empty),
+            1 => (dnsCollection[0].ToString(), string.Empty),
+            _ => (dnsCollection[0].ToString(), dnsCollection[1].ToString())
+        };
     }
 }

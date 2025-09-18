@@ -6,7 +6,8 @@ namespace DC.Core.Infrastructure.SQLItePCL;
 public class DnsContext 
 {
     private readonly string _dbPath;
-    public SQLiteAsyncConnection Database;
+    public SQLiteAsyncConnection? AsyncDbConnection;
+    public SQLiteConnection? SyncDbConnection;
     
     private const SQLite.SQLiteOpenFlags Flags =
         // open the database in read/write mode
@@ -16,19 +17,36 @@ public class DnsContext
         // enable multi-threaded database access
         SQLite.SQLiteOpenFlags.SharedCache;
 
-    public DnsContext(string dbPath)
+    public DnsContext(string dbPath,bool isAsync = false)
     {
         _dbPath = dbPath;
-        InitAsync();
+        if (isAsync)
+        {
+            Task.Run(async () => await InitAsync());
+        }
+        else
+        {
+            Init();
+        }
     }
 
     public async Task InitAsync()
     {
-        if (Database is not null)
+        if (AsyncDbConnection is not null)
         {
             return;
         }
-        Database = new SQLiteAsyncConnection(_dbPath, Flags);
-        await Database.CreateTableAsync<DnsObj>();
+        AsyncDbConnection = new SQLiteAsyncConnection(_dbPath, Flags);
+        await AsyncDbConnection.CreateTableAsync<DnsObj>();
+    }
+    
+    public void Init()
+    {
+        if (SyncDbConnection is not null)
+        {
+            return;
+        }
+        SyncDbConnection = new SQLiteConnection(_dbPath, Flags);
+        SyncDbConnection.CreateTable<DnsObj>();
     }
 }

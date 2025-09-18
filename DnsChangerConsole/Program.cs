@@ -4,7 +4,6 @@ using DC.Core.Application;
 using DC.Core.Application.NetworkInterfaceHelper;
 using DC.Core.Cotracts.DnsObjContracts;
 using DC.Core.Domain.DnsObj;
-using DC.Core.Infrastructure.EFCore.Repositories;
 using DC.Core.Infrastructure.SQLItePCL;
 
 namespace DnsChangerConsole;
@@ -15,38 +14,29 @@ internal static class Program
 
     public static async Task Main(string[] args)
     {
-        string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DbName);
-        IServiceProvider ServiceProvider;
-        var host = await BuildHost();
-        ServiceProvider = host.Services;
+        //string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DbName);
+
+        using var host = BuildHost();
+        var services = host.Services;
+
         Console.WriteLine("Getting Things Ready...");
 
-        // if (!File.Exists(DbName))
-        // {
-        //     File.Create(DbName);
-        //     Console.WriteLine("Please Restart the App for full initialization");
-        // }
-
-        //if (File.Exists(DbName)) ServiceProvider.GetRequiredService<DnsContext>().Database.Migrate();
-
-        var consoleapp = new ConsoleApp(ServiceProvider.GetRequiredService<IDnsObjApplication>());
-        consoleapp.GoHome();
-        Console.ReadLine();
+        var consoleApp = services.GetRequiredService<ConsoleApp>();
+        consoleApp.RunAsync(CancellationToken.None); // synchronous loop
     }
 
-    private static async Task<IHost> BuildHost()
+    private static IHost BuildHost()
     {
-        var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
-        {
-            services.AddSingleton<NetworkInterfaceClass>();
-            services.AddSingleton<IDnsObjRepository, DnsObjRepository>();
-            services.AddSingleton<IDnsObjApplication, DnsObjApplication>();
-
-            services.AddSingleton<DnsContext>(db => ActivatorUtilities.CreateInstance<DnsContext>(db,DbName));
-
-            //services.AddDbContext<DnsContext>(options => options.UseSqlite(@$"Data Source={DbName}"));
-            
-        }).Build();
-        return host;
+        return Host.CreateDefaultBuilder()
+            .ConfigureServices((context, services) =>
+            {
+                services.AddSingleton<DnsContext>(
+                    db => ActivatorUtilities.CreateInstance<DnsContext>(db, DbName));
+                services.AddSingleton<IDnsObjRepository, DnsObjRepository>();
+                services.AddSingleton<IDnsObjApplication, DnsObjApplication>();
+                services.AddSingleton<NetworkInterfaceClass>();
+                services.AddSingleton<ConsoleApp>();
+            })
+            .Build();
     }
 }
