@@ -23,7 +23,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore QuickDNS.sln
 
-    # Self-contained single file (fat exe, includes runtime + sqlite dll)
+    # Self-contained single file
     - name: Publish self-contained
       run: dotnet publish QuickDnsConsole/QuickDNSConsole.csproj `
              -c Release -r win-x64 --self-contained true `
@@ -32,7 +32,7 @@ jobs:
              -p:IncludeNativeLibrariesForSelfExtract=true `
              -o publish/self-contained
 
-    # Framework-dependent (lighter, requires .NET Runtime installed)
+    # Framework-dependent
     - name: Publish framework-dependent
       run: dotnet publish QuickDnsConsole/QuickDNSConsole.csproj `
              -c Release -r win-x64 --self-contained false `
@@ -41,15 +41,24 @@ jobs:
              -p:IncludeNativeLibrariesForSelfExtract=false `
              -o publish/framework
 
+    # Rename + Zip
+    - name: Package Artifacts
+      run: |
+        cd publish/self-contained
+        ren QuickDnsConsole.exe QuickDNS-selfcontained.exe
+        7z a ../QuickDNS-selfcontained.zip QuickDNS-selfcontained.exe
+        cd ../framework
+        ren QuickDnsConsole.exe QuickDNS-framework.exe
+        7z a ../QuickDNS-framework.zip QuickDNS-framework.exe
+
     - name: Create/Update Release (Latest)
       uses: softprops/action-gh-release@v1
       with:
         tag_name: latest
         name: "QuickDNS Latest Build"
         files: |
-          publish/self-contained/QuickDNS-selfcontained.exe
-          publish/framework/QuickDNS-framework.exe
+          publish/QuickDNS-selfcontained.zip
+          publish/QuickDNS-framework.zip
         fail_on_unmatched_files: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
