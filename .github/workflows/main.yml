@@ -26,11 +26,12 @@ jobs:
     - name: Publish single-file exe
       run: dotnet publish QuickDnsConsole/QuickDNSConsole.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
 
-    - name: Create Release (Latest)
+    - name: Create/Update Release (Latest)
       uses: softprops/action-gh-release@v1
       with:
         tag_name: latest
-        release_name: "QuickDNS Latest Build"
+        name: "QuickDNS Latest Build"
+        body: "This is the latest auto-build from master branch."
         files: QuickDnsConsole/bin/Release/net9.0/win-x64/publish/*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
