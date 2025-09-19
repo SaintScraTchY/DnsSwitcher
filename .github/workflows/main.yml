@@ -24,6 +24,5 @@ jobs:
       run: dotnet restore QuickDNS.sln
 
     - name: Publish single-file exe
-      run: dotnet publish QuickDnsConsole/QuickDnsConsole.csproj \
-           -c Release -r win-x64 --self-contained true \
-           -p:PublishSingleFile=true
+      run: dotnet publish QuickDnsConsole/QuickDNSConsole.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
+
