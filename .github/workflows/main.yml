@@ -1,0 +1,38 @@
+# .github/workflows/build.yml
+name: Build QuickDns
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: "9.0.x" # adjust if targeting 8.0 or lower
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build with icon
+      run: dotnet publish -c Release -r win-x64 `
+        --self-contained true `
+        -p:PublishSingleFile=true `
+        -p:IncludeNativeLibrariesForSelfExtract=true `
+        -p:EnableCompressionInSingleFile=true
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: QuickDns
+        path: |
+          **/bin/Release/net*/win-x64/publish/*
