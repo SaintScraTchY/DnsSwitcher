@@ -22,7 +22,7 @@ internal static class Program
         Console.WriteLine("Getting Things Ready...");
 
         var consoleApp = services.GetRequiredService<ConsoleApp>();
-        consoleApp.RunAsync(CancellationToken.None); // synchronous loop
+        //consoleApp.RunAsync(CancellationToken.None); // synchronous loop
     }
 
     private static IHost BuildHost()

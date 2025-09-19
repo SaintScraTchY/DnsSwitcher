@@ -17,8 +17,8 @@ public class DnsObjViewModel
     {
         Id = id;
         Name = name;
-        DnsAddresses = firstDns;
-        FirstDns = secondDns;
+        FirstDns = firstDns;
+        SecondDns = secondDns;
         DnsAddresses = firstDns + " | " + secondDns;
     }
 }

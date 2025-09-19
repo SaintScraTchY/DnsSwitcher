@@ -7,22 +7,16 @@ public static class SQLiteHelper
 {
     public static DnsObjViewModel MapDnsObjViewModel(this DnsObj dnsObj)
     {
-        return new DnsObjViewModel()
-        {
-            Id = dnsObj.Id,
-            DnsAddresses = dnsObj.FirstDns + " | " + dnsObj.SecondDns,
-            Name = dnsObj.Name,
-        };
+        return new DnsObjViewModel(dnsObj.Id, dnsObj.Name, dnsObj.FirstDns, dnsObj.SecondDns);
     }
 
     public static EditDnsObj MapEditDnsObj(this DnsObj dnsObj)
     {
-        return new EditDnsObj
-        {
-            Id = dnsObj.Id,
-            Name = dnsObj.Name,
-            FirstDns = dnsObj.FirstDns,
-            SecondDns = dnsObj.SecondDns,
-        };
+        return new EditDnsObj( dnsObj.Name, dnsObj.FirstDns, dnsObj.SecondDns, dnsObj.Id );
+    }
+    
+    public static EditDnsObj MapEditDnsObj(this DnsObjViewModel dnsObj)
+    {
+        return new EditDnsObj( dnsObj.Name, dnsObj.FirstDns, dnsObj.SecondDns, dnsObj.Id );
     }
 }
