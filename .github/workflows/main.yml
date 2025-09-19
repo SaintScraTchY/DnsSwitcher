@@ -46,9 +46,10 @@ jobs:
       with:
         tag_name: latest
         name: "QuickDNS Latest Build"
-        body: "Auto-build includes:\n- Self-contained exe (no .NET needed)\n- Framework-dependent exe (lighter, requires .NET 9 runtime)"
         files: |
-          publish/self-contained/*
-          publish/framework/*
+          publish/self-contained/QuickDNS-selfcontained.exe
+          publish/framework/QuickDNS-framework.exe
+        fail_on_unmatched_files: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
