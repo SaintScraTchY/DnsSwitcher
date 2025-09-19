@@ -23,9 +23,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore QuickDNS.sln
 
-    - name: Build
-      run: dotnet build QuickDNS.sln --configuration Release --no-restore
-
     - name: Publish single-file exe
       run: dotnet publish QuickDnsConsole/QuickDnsConsole.csproj \
            -c Release -r win-x64 --self-contained true \
