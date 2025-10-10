@@ -36,28 +36,38 @@ public class ConsoleApp
 
     private void ReloadSettings()
     {
-        var setting = new ConsoleAppSettings();
         if (File.Exists("settings.json"))
         {
-            var settings = JsonSerializer.Deserialize<ConsoleAppSettings>(
-                File.ReadAllText("settings.json")
-            );
-             _settings = settings ?? new ConsoleAppSettings();
-            return;
+            try
+            {
+                var json = File.ReadAllText("settings.json");
+                _settings = JsonSerializer.Deserialize<ConsoleAppSettings>(json)
+                            ?? new ConsoleAppSettings();
+                return;
+            }
+            catch
+            {
+                // fallback if malformed
+                _settings = new ConsoleAppSettings();
+            }
         }
-
-        _settings = setting;
-        var jsonStr = JsonSerializer.Serialize(setting);
-        File.WriteAllText("settings.json", JsonSerializer.Serialize(setting));
+        else
+        {
+            _settings = new ConsoleAppSettings();
+            File.WriteAllText("settings.json",
+                JsonSerializer.Serialize(_settings, new JsonSerializerOptions { WriteIndented = true }));
+        }
     }
 
+
     // Call this from Program.Main synchronously (no background Task.Run)
+    // call this once at startup
     public void Run()
     {
         layout = new Layout("Root")
             .SplitRows(
-                new Layout("Content").Ratio(10),
-                new Layout("Footer").Ratio(1)
+                new Layout("Content").Ratio(7),
+                new Layout("Footer").Ratio(3)
             );
 
         layout["Content"].SplitColumns(
@@ -65,32 +75,43 @@ public class ConsoleApp
             new Layout("Right").Ratio(1)
         );
 
-        // Start Live only once
+        // initialize footer/instruction before live
+        layout["Footer"].Update(BuildInstructionPanel());
+
+        // Start Live exactly once and capture the context
         AnsiConsole.Live(layout)
             .Start(ctx =>
             {
-                _liveDisplayContext = ctx;
+                _liveDisplayContext = ctx; // keep the context
 
                 while (!_ct.IsCancellationRequested && _state != AppState.Exit)
                 {
-                    var objs = SafeGetAll();
-                    var current = SafeGetCurrentDns()?.DnsAddresses ?? "(none)";
-
-                    if (objs.Count == 0)
-                        _selectedIndex = 0;
+                    if (_state != AppState.Home)
+                    {
+                        AnsiConsole.Clear();
+                        // layout["Left"].IsVisible = false;
+                        // layout["Right"].IsVisible = false;
+                        // layout["Content"].IsVisible = false;
+                        // ctx.Refresh();
+                        // AnsiConsole.Clear();
+                    }
                     else
-                        _selectedIndex = Math.Clamp(_selectedIndex, 0, objs.Count - 1);
+                    {
+                        var objs = SafeGetAll();
+                        var current = SafeGetCurrentDns()?.DnsAddresses ?? "(none)";
 
-                    // Update layout slots
-                    var accentStyle = new Style(_settings.AccentColor);
-                    layout["Left"].Update(BuildDnsTable(ref objs, accentStyle));
-                    layout["Right"].Update(BuildInfoTable(current, accentStyle));
-                    layout["Footer"].Update(BuildInstructionPanel());
+                        if (objs.Count == 0) _selectedIndex = 0;
+                        else _selectedIndex = Math.Clamp(_selectedIndex, 0, objs.Count - 1);
 
-                    ctx.Refresh(); // draw new state
-
-                    var key = Console.ReadKey(true);
-                    HandleKey(key, objs, current); // <-- factor key logic here
+                        var accentStyle = new Style(_settings.AccentColor.ToSpectreColor());
+                        layout["Left"].Update(BuildDnsTable(ref objs, accentStyle));
+                        layout["Right"].Update(BuildInfoTable(current, accentStyle));
+                        // footer kept to instructions unless overridden by CRUD flows
+                        // layout["Footer"].Update(BuildInstructionPanel());
+                        ctx.Refresh();
+                        var key = Console.ReadKey(true);
+                        HandleKey(key, objs, current);
+                    }
                 }
             });
     }
@@ -109,24 +130,18 @@ public class ConsoleApp
                     ApplySelection(objs[_selectedIndex], layout, _liveDisplayContext);
                 break;
             case ConsoleKey.C:
-                _state = AppState.Create;
-                CreateFlow();
-                _state = AppState.Home;
+                RunCrudFlow(AppState.Create, CreateFlow);
                 break;
             case ConsoleKey.M:
                 if (objs.Count > 0)
                 {
-                    _state = AppState.Edit;
-                    EditFlow(objs[_selectedIndex]);
-                    _state = AppState.Home;
+                    RunCrudFlow(AppState.Edit, () => EditFlow(objs[_selectedIndex]));
                 }
                 break;
             case ConsoleKey.D:
                 if (objs.Count > 0)
                 {
-                    _state = AppState.Delete;
-                    DeleteFlow(objs[_selectedIndex]);
-                    _state = AppState.Home;
+                    RunCrudFlow(AppState.Edit, () => DeleteFlow(objs[_selectedIndex]));
                 }
                 break;
             case ConsoleKey.U:
@@ -137,48 +152,25 @@ public class ConsoleApp
                 break;
         }
     }
+    
+    private void RunCrudFlow(AppState newState, Action flow)
+    {
+        // Stop live rendering
+        _state = newState;
+        AnsiConsole.Clear();
 
+        // Run standalone UI logic (not inside live)
+        flow();
+
+        // Restore
+        _state = AppState.Home;
+        AnsiConsole.Clear();
+    }
 
 
     #region Renderers & helpers
 
-    private void RenderDashboardAsync(IList<DnsObjViewModel> objs, string currentDns)
-        {
-            if (_settings.UseSimpleDashboard)
-            {
-                RenderSimpleDashboard(objs, currentDns);
-                return;
-            }
-            
-            var accentStyle = new Style(_settings.AccentColor);
-
-            // Root split into main content + footer (instructions)
-            layout = new Layout("Root")
-                .SplitRows(
-                    new Layout("Content").Ratio(10),
-                    new Layout("Footer").Ratio(1)
-                );
-
-            // --- Content is split left/right ---
-            layout["Content"].SplitColumns(
-                new Layout("Left").Ratio(2),
-                new Layout("Right").Ratio(1)
-            );
-            AnsiConsole.Live(layout)
-                .Start(ctx =>
-                {
-                    while (!_ct.IsCancellationRequested)
-                    {
-                        _liveDisplayContext = ctx;  
-                        layout["Left"].Update(BuildDnsTable(ref objs,accentStyle));
-                        layout["Right"].Update(BuildInfoTable(currentDns,accentStyle));
-                        ctx.Refresh();
-                        layout["Footer"].Update(BuildInstructionPanel());
-                    }
-                });
-    }
-    
-        // --- Build DNS table ---
+    // --- Build DNS table ---
     Table BuildDnsTable(ref IList<DnsObjViewModel> objs,Style accentStyle)
     {
         var dnsTable = new Table()
@@ -203,7 +195,7 @@ public class ConsoleApp
 
                 if (i == _selectedIndex)
                 {
-                    var style = new Style(_settings.HighlightForeground, _settings.HighlightBackground);
+                    var style = new Style(_settings.HighlightForeground.ToSpectreColor(), _settings.HighlightBackground.ToSpectreColor());
                     dnsTable.AddRow(
                         new Markup($"{prefix}{o.Id}", style),
                         new Markup($"{o.Name ?? "(no name)"}", style),
@@ -248,7 +240,7 @@ public class ConsoleApp
     Panel BuildInstructionPanel()
     {
         return new Panel(
-            new Markup("[grey]Ready.[/] \n \n" +
+            new Markup("[green]Ready.[/] \n" +
                 "[grey]Use ↑Up/↓Down Arrow Keys to move selection. Enter = apply selected DNS.\n" +
                 "Commands: (C)reate | (M)odify | (D)elete | (U)nset | (E)xit\n" +
                 "Press [underline]ESC[/] to cancel while you are in a Create/Edit/Delete page.[/]"
@@ -284,7 +276,6 @@ private void RenderSimpleDashboard(IList<DnsObjViewModel> objs, string currentDn
     var choice = AnsiConsole.Prompt(prompt);
     AnsiConsole.MarkupLine($"[green]Current DNS:[/] {currentDns}");
 }
-
 
     // safe wrappers in case your IDnsObjApplication is async — adjust if needed
     private IList<DnsObjViewModel> SafeGetAll()
@@ -366,7 +357,6 @@ private void RenderSimpleDashboard(IList<DnsObjViewModel> objs, string currentDn
         ctx.Refresh();
     }
 
-
     private void UnsetDns()
     {
         try
@@ -386,16 +376,17 @@ private void RenderSimpleDashboard(IList<DnsObjViewModel> objs, string currentDn
     private void CreateFlow()
     {
         Console.Clear();
+        AnsiConsole.Clear();
         AnsiConsole.MarkupLine("[yellow]-- Create DNS (ESC to cancel) --[/]");
-
+        
         var title = ReadLineWithEsc("Dns Title: ");
-        if (title == null) { Cancelled(); return; }
+        if (string.IsNullOrEmpty(title)) { Cancelled(); return; }
 
         var first = ReadLineWithEsc("First DNS: ");
-        if (first == null) { Cancelled(); return; }
+        if (string.IsNullOrEmpty(first)) { Cancelled(); return; }
 
         var second = ReadLineWithEsc("Second DNS (optional): ");
-        if (second == null) { Cancelled(); return; }
+        if (string.IsNullOrEmpty(second)) { Cancelled(); return; }
 
         try
         {
@@ -423,6 +414,7 @@ private void RenderSimpleDashboard(IList<DnsObjViewModel> objs, string currentDn
     private void EditFlow(DnsObjViewModel selected)
     {
         Console.Clear();
+        AnsiConsole.Clear();
         AnsiConsole.MarkupLine($"[yellow]-- Edit DNS #{selected.Id} (ESC to cancel) --[/]");
         AnsiConsole.MarkupLine($"[grey]Current Title: {selected.Name}[/]");
         var newTitle = ReadLineWithEsc("New Title (leave empty to keep current): ");
@@ -471,6 +463,7 @@ private void RenderSimpleDashboard(IList<DnsObjViewModel> objs, string currentDn
     private void DeleteFlow(DnsObjViewModel selected)
     {
         Console.Clear();
+        AnsiConsole.Clear();
         AnsiConsole.MarkupLine($"[yellow]-- Delete DNS #{selected.Id} (ESC to cancel) --[/]");
         AnsiConsole.MarkupLine($"Are you sure you want to delete: [red]{selected.Name}[/] ? (Y=confirm / ESC=cancel)");
 

@@ -1,4 +1,5 @@
 ﻿using QD.Core.Cotracts.DnsObjContracts;
+using Spectre.Console;
 
 namespace QuickDNSConsole;
 
@@ -58,4 +59,6 @@ public static class ConsoleHelper
             Text += " For " + field;
         Console.WriteLine(Text);
     }
+    public static Color ToSpectreColor(this RgbColor c) => new Color(c.R, c.G, c.B);
+
 }

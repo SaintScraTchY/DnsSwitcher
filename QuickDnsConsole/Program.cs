@@ -5,6 +5,7 @@ using QD.Core.Application.NetworkInterfaceHelper;
 using QD.Core.Cotracts.DnsObjContracts;
 using QD.Core.Domain.DnsObj;
 using QD.Core.Infrastructure.SQLItePCL;
+using Spectre.Console;
 
 namespace QuickDNSConsole;
 
@@ -12,17 +13,16 @@ internal static class Program
 {
     private const string DbName = "DnsDB.db";
 
-    public static async Task Main(string[] args)
+    public static void Main(string[] args)
     {
-        //string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DbName);
-
-        using var host = BuildHost();
-        var services = host.Services;
-
-        Console.WriteLine("Getting Things Ready...");
-
-        var consoleApp = services.GetRequiredService<ConsoleApp>();
-        //consoleApp.RunAsync(CancellationToken.None); // synchronous loop
+        IServiceProvider serviceProvider = null;
+        AnsiConsole.Status().Spinner(Spinner.Known.Arc).Start("Getting Things Ready...", ctc =>
+        {
+            var host = BuildHost();
+            serviceProvider = host.Services;
+            Thread.Sleep(1000);
+        });
+        var consoleApp = serviceProvider.GetRequiredService<ConsoleApp>();
     }
 
     private static IHost BuildHost()
